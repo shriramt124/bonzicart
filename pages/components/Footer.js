@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUp, Mail, Facebook, Twitter } from 'lucide-react';
 import { PiYoutubeLogoThin } from "react-icons/pi";
 import { CiInstagram } from "react-icons/ci";
@@ -15,25 +16,21 @@ function Footer() {
                         <h3 className="text-xl font-semibold text-gray-900">Shop on the Go</h3>
                         <div className="flex flex-wrap gap-4">
                             <Link href="#" className="transition hover:opacity-75">
-                                <img
+                                <Image
                                     src="https://www.bonzicart.com/public/assets/images/GooglePlay.png"
                                     alt="Get it on Google Play"
+                                    width={135}
+                                    height={40}
                                     className="h-12 w-auto"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "https://via.placeholder.com/135x40?text=Google+Play";
-                                    }}
                                 />
                             </Link>
                             <Link href="#" className="transition hover:opacity-75">
-                                <img
+                                <Image
                                     src="https://www.bonzicart.com/public/assets/images/AppStore.png"
                                     alt="Download on the App Store"
+                                    width={135}
+                                    height={40}
                                     className="h-12 w-auto"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "https://via.placeholder.com/135x40?text=App+Store";
-                                    }}
                                 />
                             </Link>
                         </div>
@@ -164,14 +161,12 @@ function Footer() {
                                 key={payment.name}
                                 className="bg-white p-3 rounded-lg border border-gray-200 h-12 w-20 flex items-center justify-center shadow-sm"
                             >
-                                <img
+                                <Image
                                     src={payment.link}
                                     alt={payment.alt}
+                                    width={60}
+                                    height={40}
                                     className="max-h-8 max-w-full object-contain"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = `https://via.placeholder.com/60x40?text=${payment.name}`;
-                                    }}
                                 />
                             </div>
                         ))}

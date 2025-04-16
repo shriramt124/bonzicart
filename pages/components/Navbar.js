@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,13 +41,15 @@ function Header() {
                         >
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
-                        <a href="/" className="flex items-center">
-                            <img
-                                src="./bonzilogo.png"
+                        <Link href="/" className="flex items-center">
+                            <Image
+                                src="/bonzilogo.png"
                                 alt="Bonzi"
-                                className={`transition-all duration-300 ${scrolled ? 'h-9 w-auto' : 'h-11 w-auto'}`}
+                                width={scrolled ? 36 : 44}
+                                height={scrolled ? 36 : 44}
+                                className="transition-all duration-300"
                             />
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Search bar - hidden on mobile, visible on larger screens */}
@@ -120,10 +124,10 @@ function Header() {
 
                             {accountDropdown && (
                                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-1 ring-1 ring-black ring-opacity-5 focus:outline-none z-20 transition-all duration-200">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">Sign In</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">Register</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">My Orders</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">My Profile</a>
+                                    <Link href="/signin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">Sign In</Link>
+                                    <Link href="/register" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">Register</Link>
+                                    <Link href="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">My Orders</Link>
+                                    <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">My Profile</Link>
                                 </div>
                             )}
                         </div>
@@ -163,9 +167,9 @@ function Header() {
                                             <ul className="space-y-3">
                                                 {category.featured.map((item) => (
                                                     <li key={item}>
-                                                        <a href="#" className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200">
+                                                        <Link href={`/category/${category.name.toLowerCase()}/${item.toLowerCase()}`} className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200">
                                                             {item}
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -173,9 +177,9 @@ function Header() {
                                         <div className="bg-gray-50 rounded-lg p-5">
                                             <p className="text-sm font-semibold text-gray-900 mb-2">Special Offers</p>
                                             <p className="text-xs text-gray-600 mb-3">Up to 50% off on {category.name.toLowerCase()}</p>
-                                            <a href="#" className="text-xs font-semibold text-orange-500 hover:text-orange-600 transition-colors duration-200">
+                                            <Link href={`/category/${category.name.toLowerCase()}`} className="text-xs font-semibold text-orange-500 hover:text-orange-600 transition-colors duration-200">
                                                 Shop Now →
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -185,10 +189,10 @@ function Header() {
 
                     {/* Secondary navigation */}
                     <div className="flex items-center space-x-8 text-sm">
-                        <a href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Deals</a>
-                        <a href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">New Arrivals</a>
-                        <a href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Sell with Us</a>
-                        <a href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Help</a>
+                        <Link href="/deals" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Deals</Link>
+                        <Link href="/new-arrivals" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">New Arrivals</Link>
+                        <Link href="/sell-with-us" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Sell with Us</Link>
+                        <Link href="/help" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Help</Link>
                     </div>
                 </nav>
             </div>
@@ -205,10 +209,10 @@ function Header() {
                         </div>
                     ))}
                     <hr className="my-3" />
-                    <a href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Deals</a>
-                    <a href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">New Arrivals</a>
-                    <a href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Sell with Us</a>
-                    <a href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Help</a>
+                    <Link href="/deals" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Deals</Link>
+                    <Link href="/new-arrivals" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">New Arrivals</Link>
+                    <Link href="/sell-with-us" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Sell with Us</Link>
+                    <Link href="/help" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Help</Link>
                 </div>
             </div>
         </header>
