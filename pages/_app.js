@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import Header from "./components/Navbar";
+ 
 import Footer from "./components/Footer";
 import Nava from "./components/Nava";
 
