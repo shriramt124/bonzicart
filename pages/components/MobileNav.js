@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown, Bell, Sparkles, Gift, Tag, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -9,9 +8,9 @@ function MobileNav() {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(null);
-    
+
     const searchInputRef = useRef(null);
-    
+
     useEffect(() => {
         if (isSearchActive && searchInputRef.current) {
             searchInputRef.current.focus();
@@ -113,18 +112,21 @@ function MobileNav() {
                         </div>
                     </div>
 
-                    {/* Category pills - horizontal scrollable */}
-                    <div className="mt-3 overflow-x-auto flex space-x-2 pb-1 no-scrollbar">
-                        {categories.map((category) => (
-                            <button
-                                key={category.name}
-                                onClick={() => selectCategory(category.name)}
-                                className="flex items-center space-x-1 bg-gray-50 hover:bg-orange-50 px-3 py-1.5 rounded-full text-sm whitespace-nowrap"
-                            >
-                                <span>{category.icon}</span>
-                                <span>{category.name}</span>
-                            </button>
-                        ))}
+                    {/* Category pills - horizontal scrollable with custom scrollbar */}
+                    <div className="mt-3 relative">
+                        <div className="overflow-x-auto flex space-x-2 pb-1 scrollbar-hide">
+                            {categories.map((category) => (
+                                <button
+                                    key={category.name}
+                                    onClick={() => selectCategory(category.name)}
+                                    className="flex items-center space-x-1 bg-gray-50 hover:bg-orange-50 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors duration-200"
+                                >
+                                    <span>{category.icon}</span>
+                                    <span>{category.name}</span>
+                                </button>
+                            ))}
+                        </div>
+                        <div className="absolute left-0 right-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 opacity-40 rounded-full"></div>
                     </div>
                 </div>
             )}
