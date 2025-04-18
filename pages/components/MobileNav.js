@@ -217,7 +217,13 @@ function MobileNav() {
                                 {trendingProducts.map((product, index) => (
                                     <Link href="/" key={index} className="group block bg-white rounded-lg p-3 border border-gray-100 hover:shadow-md transition-all duration-200">
                                         <div className="relative mb-2">
-                                            <img src={product.image} alt={product.name} className="w-full h-auto rounded" />
+                                            <Image 
+                                                src={product.image} 
+                                                alt={product.name} 
+                                                width={80}
+                                                height={80}
+                                                className="w-full h-auto rounded" 
+                                            />
                                             <span className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded">
                                                 {product.discount}
                                             </span>
@@ -368,7 +374,7 @@ function MobileNav() {
                                 <div>
                                     <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded-md mb-2">Featured</span>
                                     <h3 className="font-semibold text-gray-900">New Arrivals</h3>
-                                    <p className="text-xs text-gray-600 mt-1 mb-3">Check out what's new in {selectedCategory.toLowerCase()}</p>
+                                    <p className="text-xs text-gray-600 mt-1 mb-3">Check out what&apos;s new in {selectedCategory.toLowerCase()}</p>
                                 </div>
                                 <Link href="#" className="text-xs font-semibold text-orange-500">
                                     View Collection →
@@ -413,11 +419,14 @@ function MobileNav() {
                         <div className="grid grid-cols-2 gap-3">
                             {[1, 2, 3, 4].map((item) => (
                                 <Link href="#" key={item} className="group block bg-white rounded-lg p-3 border border-gray-100 hover:shadow-md transition-all duration-200">
-                                    <div className="relative mb-2 aspect-square bg-gray-100 rounded-md">
-                                        {/* Placeholder for product image */}
-                                        <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                                            <span className="text-xs">Image</span>
-                                        </div>
+                                    <div className="relative mb-2 aspect-square rounded-md">
+                                        <Image 
+                                            src="/api/placeholder/120/120"
+                                            alt={`Product ${item}`}
+                                            width={120}
+                                            height={120}
+                                            className="rounded-md object-cover w-full h-full"
+                                        />
                                         <span className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded">
                                             Sale
                                         </span>

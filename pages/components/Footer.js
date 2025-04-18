@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -72,7 +71,7 @@ function Footer() {
                                 </button>
                             </div>
                         </div>
-                        
+
                         {/* Social icons in a row */}
                         <div className="flex justify-center space-x-4 mb-3">
                             <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
@@ -131,7 +130,7 @@ function Footer() {
                                 alt="Google Play"
                                 width={80}
                                 height={24}
-                                className="h-7 w-auto"
+                                className="h-auto w-auto max-h-7"
                             />
                         </Link>
                         <Link href="#" className="transition hover:opacity-75">
@@ -140,7 +139,7 @@ function Footer() {
                                 alt="App Store"
                                 width={80}
                                 height={24}
-                                className="h-7 w-auto"
+                                className="h-auto w-auto max-h-7"
                             />
                         </Link>
                     </div>
@@ -246,7 +245,7 @@ function Footer() {
                                         alt="Google Play"
                                         width={90}
                                         height={27}
-                                        className="h-7 w-auto"
+                                        className="h-auto w-auto max-h-7"
                                     />
                                 </Link>
                                 <Link href="#" className="transition hover:opacity-75">
@@ -255,7 +254,7 @@ function Footer() {
                                         alt="App Store"
                                         width={90}
                                         height={27}
-                                        className="h-7 w-auto"
+                                        className="h-auto w-auto max-h-7"
                                     />
                                 </Link>
                             </div>
