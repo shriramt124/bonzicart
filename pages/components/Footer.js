@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -53,100 +54,111 @@ function Footer() {
     ];
 
     return (
-        <footer className="bg-white border-t border-gray-100 pt-6 pb-4">
+        <footer className="bg-white border-t border-gray-100 pt-4 pb-2">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Mobile Footer - Compact Accordion */}
+                {/* Mobile Footer - Optimized Accordion */}
                 <div className="lg:hidden">
-                    {/* Quick Contact & Subscribe Row */}
-                    <div className="flex flex-col space-y-3 mb-5">
-                        <div className="bg-orange-50 rounded-lg p-3 flex items-center justify-between">
-                            <div className="flex items-center">
-                                <Mail className="text-orange-500 mr-2" size={16} />
-                                <span className="text-sm font-medium">Get Updates</span>
-                            </div>
-                            <div className="flex-1 mx-2">
+                    {/* Subscribe and Social Row */}
+                    <div className="mb-3">
+                        <div className="flex items-center justify-between rounded-lg bg-orange-50 p-2 mb-2">
+                            <div className="flex flex-1 items-center">
                                 <input
                                     type="email"
                                     placeholder="Your email"
-                                    className="w-full px-2 py-1 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-400"
+                                    className="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-400"
                                 />
+                                <button className="ml-2 bg-orange-500 text-white text-xs px-2 py-1.5 rounded-md whitespace-nowrap">
+                                    Subscribe
+                                </button>
                             </div>
-                            <button className="bg-orange-500 text-white text-xs px-2 py-1 rounded-md">
-                                Subscribe
-                            </button>
                         </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="bg-gray-50 rounded-lg p-2.5 flex items-center">
-                                <Phone className="text-orange-500 mr-2" size={14} />
-                                <span className="text-xs">24/7 Support</span>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-2.5 flex items-center">
-                                <MapPin className="text-orange-500 mr-2" size={14} />
-                                <span className="text-xs">Store Locator</span>
-                            </div>
+                        
+                        {/* Social icons in a row */}
+                        <div className="flex justify-center space-x-4 mb-3">
+                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
+                                <Facebook size={18} />
+                            </Link>
+                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
+                                <CiInstagram size={20} />
+                            </Link>
+                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
+                                <Twitter size={18} />
+                            </Link>
+                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
+                                <PiYoutubeLogoThin size={20} />
+                            </Link>
                         </div>
                     </div>
 
-                    {/* Compact Link Sections */}
-                    <div className="grid grid-cols-3 gap-2 mb-4">
+                    {/* Accordion Footer Links */}
+                    <div className="border rounded-lg overflow-hidden mb-3">
                         {footerSections.map((section) => (
-                            <div key={section.id} className="bg-gray-50 rounded-lg p-3">
-                                <h3 className="text-xs font-semibold text-gray-800 mb-2">{section.title}</h3>
-                                <ul className="space-y-1.5">
-                                    {section.links.slice(0, 4).map((link) => (
-                                        <li key={link.href}>
-                                            <Link href={link.href} className="text-xs text-gray-600 hover:text-orange-500 transition">
-                                                {link.text}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
+                            <div key={section.id} className="border-b last:border-b-0">
+                                <button 
+                                    onClick={() => toggleSection(section.id)} 
+                                    className="flex w-full items-center justify-between p-2.5 text-left"
+                                >
+                                    <span className="text-xs font-semibold text-gray-700">{section.title}</span>
+                                    {openSection === section.id ? 
+                                        <ChevronUp size={16} className="text-gray-500" /> : 
+                                        <ChevronDown size={16} className="text-gray-500" />
+                                    }
+                                </button>
+                                {openSection === section.id && (
+                                    <div className="px-2.5 pb-2.5 bg-gray-50">
+                                        <div className="grid grid-cols-2 gap-1.5">
+                                            {section.links.map((link) => (
+                                                <Link 
+                                                    key={link.href} 
+                                                    href={link.href} 
+                                                    className="text-xs text-gray-600 hover:text-orange-500 py-1"
+                                                >
+                                                    {link.text}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
 
-                    {/* Social and App Downloads */}
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="flex space-x-3">
-                            <Link href="#" className="bg-gray-50 p-2 rounded-full text-gray-500 hover:text-orange-500 transition">
-                                <Facebook size={16} />
-                            </Link>
-                            <Link href="#" className="bg-gray-50 p-2 rounded-full text-gray-500 hover:text-orange-500 transition">
-                                <CiInstagram size={16} />
-                            </Link>
-                            <Link href="#" className="bg-gray-50 p-2 rounded-full text-gray-500 hover:text-orange-500 transition">
-                                <Twitter size={16} />
-                            </Link>
-                            <Link href="#" className="bg-gray-50 p-2 rounded-full text-gray-500 hover:text-orange-500 transition">
-                                <PiYoutubeLogoThin size={16} />
-                            </Link>
-                        </div>
+                    {/* Download Apps */}
+                    <div className="flex justify-center space-x-2 mb-3">
+                        <Link href="#" className="transition hover:opacity-75">
+                            <Image
+                                src="https://www.bonzicart.com/public/assets/images/GooglePlay.png"
+                                alt="Google Play"
+                                width={80}
+                                height={24}
+                                className="h-7 w-auto"
+                            />
+                        </Link>
+                        <Link href="#" className="transition hover:opacity-75">
+                            <Image
+                                src="https://www.bonzicart.com/public/assets/images/AppStore.png"
+                                alt="App Store"
+                                width={80}
+                                height={24}
+                                className="h-7 w-auto"
+                            />
+                        </Link>
+                    </div>
 
-                        <div className="flex space-x-2">
-                            <Link href="#" className="transition hover:opacity-75">
-                                <Image
-                                    src="https://www.bonzicart.com/public/assets/images/GooglePlay.png"
-                                    alt="Google Play"
-                                    width={80}
-                                    height={24}
-                                    className="h-7 w-auto"
-                                />
-                            </Link>
-                            <Link href="#" className="transition hover:opacity-75">
-                                <Image
-                                    src="https://www.bonzicart.com/public/assets/images/AppStore.png"
-                                    alt="App Store"
-                                    width={80}
-                                    height={24}
-                                    className="h-7 w-auto"
-                                />
-                            </Link>
-                        </div>
+                    {/* Quick Contact */}
+                    <div className="flex justify-center mb-2 space-x-4">
+                        <Link href="tel:18001234567" className="flex items-center text-xs text-gray-600">
+                            <Phone className="text-orange-500 mr-1.5" size={12} />
+                            <span>Support</span>
+                        </Link>
+                        <Link href="/help" className="flex items-center text-xs text-gray-600">
+                            <MapPin className="text-orange-500 mr-1.5" size={12} />
+                            <span>Locations</span>
+                        </Link>
                     </div>
                 </div>
 
-                {/* Desktop Footer - Compact Grid */}
+                {/* Desktop Footer - Unchanged */}
                 <div className="hidden lg:block">
                     <div className="grid grid-cols-5 gap-6">
                         {/* Column 1-3: Quick Links */}
@@ -252,12 +264,12 @@ function Footer() {
                 </div>
 
                 {/* Copyright - Sleek and Compact */}
-                <div className="mt-4 pt-3 border-t border-gray-100">
+                <div className="mt-2 pt-2 border-t border-gray-100">
                     <div className="flex flex-col sm:flex-row justify-between items-center">
-                        <p className="text-xs text-gray-500 mb-2 sm:mb-0">
+                        <p className="text-xs text-gray-500 mb-1 sm:mb-0">
                             © {new Date().getFullYear()} Bonzi Cart. All rights reserved.
                         </p>
-                        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
                             <Link href="/sitemap" className="text-xs text-gray-500 hover:text-orange-500 transition">Sitemap</Link>
                             <Link href="/accessibility" className="text-xs text-gray-500 hover:text-orange-500 transition">Accessibility</Link>
                             <Link href="/cookie-policy" className="text-xs text-gray-500 hover:text-orange-500 transition">Cookie Policy</Link>
