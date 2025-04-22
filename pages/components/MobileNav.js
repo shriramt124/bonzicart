@@ -74,7 +74,7 @@ function MobileNav() {
                     <div className="flex items-center justify-between">
                         {/* Menu button and Logo */}
                         <div className="flex items-center">
-                            <button 
+                            <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                                 className="p-2 rounded-full text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 focus:outline-none mr-2"
                                 aria-label="Toggle menu"
@@ -94,7 +94,7 @@ function MobileNav() {
 
                         {/* Action icons */}
                         <div className="flex items-center space-x-3">
-                            <button 
+                            <button
                                 onClick={activateSearch}
                                 className="p-2 rounded-full text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 focus:outline-none"
                                 aria-label="Search"
@@ -136,7 +136,7 @@ function MobileNav() {
                 <div className="fixed inset-0 bg-white z-50 flex flex-col">
                     <div className="px-4 py-3 border-b border-gray-100">
                         <div className="flex items-center">
-                            <button 
+                            <button
                                 onClick={() => setIsSearchActive(false)}
                                 className="p-2 rounded-full text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 focus:outline-none mr-2"
                             >
@@ -217,12 +217,12 @@ function MobileNav() {
                                 {trendingProducts.map((product, index) => (
                                     <Link href="/" key={index} className="group block bg-white rounded-lg p-3 border border-gray-100 hover:shadow-md transition-all duration-200">
                                         <div className="relative mb-2">
-                                            <Image 
-                                                src={product.image} 
-                                                alt={product.name} 
+                                            <Image
+                                                src={product.image}
+                                                alt={product.name}
                                                 width={80}
                                                 height={80}
-                                                className="w-full h-auto rounded" 
+                                                className="w-full h-auto rounded"
                                             />
                                             <span className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded">
                                                 {product.discount}
@@ -243,7 +243,7 @@ function MobileNav() {
                 <div className="fixed inset-0 bg-white z-50 flex flex-col">
                     {/* Menu Header */}
                     <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-                        <button 
+                        <button
                             onClick={() => setIsMenuOpen(false)}
                             className="p-2 rounded-full text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 focus:outline-none"
                         >
@@ -357,7 +357,7 @@ function MobileNav() {
                 <div className="fixed inset-0 bg-white z-50 flex flex-col">
                     {/* Category Header */}
                     <div className="px-4 py-3 border-b border-gray-100 flex items-center">
-                        <button 
+                        <button
                             onClick={goBackFromCategory}
                             className="p-2 rounded-full text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 focus:outline-none mr-2"
                         >
@@ -396,8 +396,8 @@ function MobileNav() {
                         <h3 className="text-sm font-semibold text-gray-700 mb-3">Shop by Category</h3>
                         <div className="space-y-1">
                             {subcategories[selectedCategory]?.map((subcat, index) => (
-                                <Link 
-                                    href="#" 
+                                <Link
+                                    href="#"
                                     key={index}
                                     className="flex items-center justify-between py-3 px-4 text-sm text-gray-700 hover:bg-orange-50 rounded-lg"
                                 >
@@ -405,8 +405,8 @@ function MobileNav() {
                                     <ChevronDown size={18} className="rotate-270" />
                                 </Link>
                             ))}
-                            <Link 
-                                href="#" 
+                            <Link
+                                href="#"
                                 className="flex items-center justify-between py-3 px-4 text-sm font-medium text-orange-500 hover:bg-orange-50 rounded-lg"
                             >
                                 <span>View All {selectedCategory}</span>
@@ -420,7 +420,7 @@ function MobileNav() {
                             {[1, 2, 3, 4].map((item) => (
                                 <Link href="#" key={item} className="group block bg-white rounded-lg p-3 border border-gray-100 hover:shadow-md transition-all duration-200">
                                     <div className="relative mb-2 aspect-square rounded-md">
-                                        <Image 
+                                        <Image
                                             src="/api/placeholder/120/120"
                                             alt={`Product ${item}`}
                                             width={120}
