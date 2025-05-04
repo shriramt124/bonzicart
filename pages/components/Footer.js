@@ -57,60 +57,61 @@ function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Mobile Footer - Optimized Accordion */}
                 <div className="lg:hidden">
-                    {/* Subscribe and Social Row */}
-                    <div className="mb-3">
-                        <div className="flex items-center justify-between rounded-lg bg-orange-50 p-2 mb-2">
-                            <div className="flex flex-1 items-center">
-                                <input
-                                    type="email"
-                                    placeholder="Your email"
-                                    className="w-full px-2 py-1.5 text-xs border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-400"
-                                />
-                                <button className="ml-2 bg-orange-500 text-white text-xs px-2 py-1.5 rounded-md whitespace-nowrap">
-                                    Subscribe
-                                </button>
-                            </div>
+                    {/* Newsletter Subscription */}
+                    <div className="mb-5">
+                        <h3 className="text-xs font-semibold text-gray-800 mb-2.5">Stay Updated</h3>
+                        <div className="relative">
+                            <input
+                                type="email"
+                                placeholder="Your email address"
+                                className="w-full px-3 py-2.5 text-xs bg-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:bg-white transition-all duration-200"
+                            />
+                            <button className="absolute right-1.5 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white text-xs px-3 py-1.5 rounded-md hover:bg-orange-600 transition-colors">
+                                Subscribe
+                            </button>
                         </div>
 
-                        {/* Social icons in a row */}
-                        <div className="flex justify-center space-x-4 mb-3">
-                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
-                                <Facebook size={18} />
-                            </Link>
-                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
-                                <CiInstagram size={20} />
-                            </Link>
-                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
-                                <Twitter size={18} />
-                            </Link>
-                            <Link href="#" className="text-gray-500 hover:text-orange-500 transition">
-                                <PiYoutubeLogoThin size={20} />
-                            </Link>
+                        {/* Social icons with subtle background */}
+                        <div className="flex justify-center mt-4 mb-5">
+                            <div className="flex items-center bg-gray-50 rounded-full px-2 py-1.5 space-x-5">
+                                <Link href="#" className="text-gray-500 hover:text-orange-500 transition p-1.5">
+                                    <Facebook size={16} />
+                                </Link>
+                                <Link href="#" className="text-gray-500 hover:text-orange-500 transition p-1.5">
+                                    <CiInstagram size={18} />
+                                </Link>
+                                <Link href="#" className="text-gray-500 hover:text-orange-500 transition p-1.5">
+                                    <Twitter size={16} />
+                                </Link>
+                                <Link href="#" className="text-gray-500 hover:text-orange-500 transition p-1.5">
+                                    <PiYoutubeLogoThin size={18} />
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Accordion Footer Links */}
-                    <div className="border rounded-lg overflow-hidden mb-3">
+                    {/* Accordion Footer Links - Borderless Modern Design */}
+                    <div className="mb-4 space-y-2">
                         {footerSections.map((section) => (
-                            <div key={section.id} className="border-b last:border-b-0">
-                                <button 
-                                    onClick={() => toggleSection(section.id)} 
-                                    className="flex w-full items-center justify-between p-2.5 text-left"
+                            <div key={section.id} className="bg-gray-50 rounded-md overflow-hidden">
+                                <button
+                                    onClick={() => toggleSection(section.id)}
+                                    className="flex w-full items-center justify-between p-3 text-left transition-colors hover:bg-gray-100"
                                 >
-                                    <span className="text-xs font-semibold text-gray-700">{section.title}</span>
-                                    {openSection === section.id ? 
-                                        <ChevronUp size={16} className="text-gray-500" /> : 
+                                    <span className="text-xs font-semibold text-gray-800">{section.title}</span>
+                                    {openSection === section.id ?
+                                        <ChevronUp size={16} className="text-orange-500" /> :
                                         <ChevronDown size={16} className="text-gray-500" />
                                     }
                                 </button>
                                 {openSection === section.id && (
-                                    <div className="px-2.5 pb-2.5 bg-gray-50">
-                                        <div className="grid grid-cols-2 gap-1.5">
+                                    <div className="px-3 pb-3 pt-1">
+                                        <div className="grid grid-cols-2 gap-2.5">
                                             {section.links.map((link) => (
-                                                <Link 
-                                                    key={link.href} 
-                                                    href={link.href} 
-                                                    className="text-xs text-gray-600 hover:text-orange-500 py-1"
+                                                <Link
+                                                    key={link.href}
+                                                    href={link.href}
+                                                    className="text-xs text-gray-600 hover:text-orange-500 py-1.5 transition-colors"
                                                 >
                                                     {link.text}
                                                 </Link>
@@ -122,37 +123,42 @@ function Footer() {
                         ))}
                     </div>
 
-                    {/* Download Apps */}
-                    <div className="flex justify-center space-x-2 mb-3">
-                        <Link href="#" className="transition hover:opacity-75">
-                            <Image
-                                src="https://www.bonzicart.com/public/assets/images/GooglePlay.png"
-                                alt="Google Play"
-                                width={80}
-                                height={24}
-                                className="h-auto w-auto max-h-7"
-                            />
-                        </Link>
-                        <Link href="#" className="transition hover:opacity-75">
-                            <Image
-                                src="https://www.bonzicart.com/public/assets/images/AppStore.png"
-                                alt="App Store"
-                                width={80}
-                                height={24}
-                                className="h-auto w-auto max-h-7"
-                            />
-                        </Link>
+                    {/* Download Apps - Redesigned */}
+                    <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                        <h3 className="text-xs font-semibold text-gray-800 mb-2.5 text-center">Get Our App</h3>
+                        <div className="flex justify-center space-x-3">
+                            <Link href="#" className="transition hover:opacity-90 hover:scale-105 transform duration-200">
+                                <Image
+                                    src="https://www.bonzicart.com/public/assets/images/GooglePlay.png"
+                                    alt="Google Play"
+                                    width={90}
+                                    height={27}
+                                    className="h-auto w-auto max-h-8"
+                                    style={{ height: 'auto' }}
+                                />
+                            </Link>
+                            <Link href="#" className="transition hover:opacity-90 hover:scale-105 transform duration-200">
+                                <Image
+                                    src="https://www.bonzicart.com/public/assets/images/AppStore.png"
+                                    alt="App Store"
+                                    width={90}
+                                    height={27}
+                                    className="h-auto w-auto max-h-8"
+                                    style={{ height: 'auto' }}
+                                />
+                            </Link>
+                        </div>
                     </div>
 
-                    {/* Quick Contact */}
-                    <div className="flex justify-center mb-2 space-x-4">
-                        <Link href="tel:18001234567" className="flex items-center text-xs text-gray-600">
-                            <Phone className="text-orange-500 mr-1.5" size={12} />
-                            <span>Support</span>
+                    {/* Quick Contact - Enhanced */}
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                        <Link href="tel:18001234567" className="flex items-center justify-center bg-gray-50 rounded-md py-2 text-xs text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors">
+                            <Phone className="text-orange-500 mr-1.5" size={14} />
+                            <span>Customer Support</span>
                         </Link>
-                        <Link href="/help" className="flex items-center text-xs text-gray-600">
-                            <MapPin className="text-orange-500 mr-1.5" size={12} />
-                            <span>Locations</span>
+                        <Link href="/help" className="flex items-center justify-center bg-gray-50 rounded-md py-2 text-xs text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors">
+                            <MapPin className="text-orange-500 mr-1.5" size={14} />
+                            <span>Store Locations</span>
                         </Link>
                     </div>
                 </div>
@@ -263,12 +269,12 @@ function Footer() {
                 </div>
 
                 {/* Copyright - Sleek and Compact */}
-                <div className="mt-2 pt-2 border-t border-gray-100">
+                <div className="mt-3 pt-3 border-t border-gray-100">
                     <div className="flex flex-col sm:flex-row justify-between items-center">
-                        <p className="text-xs text-gray-500 mb-1 sm:mb-0">
+                        <p className="text-xs text-gray-500 mb-2 sm:mb-0 text-center">
                             © {new Date().getFullYear()} Bonzi Cart. All rights reserved.
                         </p>
-                        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+                        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
                             <Link href="/sitemap" className="text-xs text-gray-500 hover:text-orange-500 transition">Sitemap</Link>
                             <Link href="/accessibility" className="text-xs text-gray-500 hover:text-orange-500 transition">Accessibility</Link>
                             <Link href="/cookie-policy" className="text-xs text-gray-500 hover:text-orange-500 transition">Cookie Policy</Link>
