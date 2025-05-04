@@ -17,6 +17,76 @@ function MobileNav() {
         }
     }, [isSearchActive]);
 
+    // Automatic carousel effect for categories
+    useEffect(() => {
+        const scrollContainer = document.getElementById('category-scroll-container');
+        if (!scrollContainer) return;
+
+        let scrollInterval;
+        let isPaused = false;
+        let scrollDirection = 1; // 1 for right, -1 for left
+        let scrollSpeed = 1; // pixels per interval
+
+        // Set initial position
+        const totalWidth = scrollContainer.scrollWidth;
+        scrollContainer.scrollLeft = 0;
+
+        // Start the automatic scrolling
+        const startScrolling = () => {
+            scrollInterval = setInterval(() => {
+                if (!isPaused) {
+                    scrollContainer.scrollLeft += scrollSpeed * scrollDirection;
+
+                    // Handle infinite scroll effect
+                    if (scrollContainer.scrollLeft >= (totalWidth / 3 * 2)) {
+                        // When we reach 2/3 of the way through, jump back to 1/3
+                        scrollContainer.scrollLeft = totalWidth / 3;
+                    } else if (scrollContainer.scrollLeft <= 0) {
+                        // When we reach the start, jump to 2/3 of the way through
+                        scrollContainer.scrollLeft = totalWidth / 3;
+                    }
+                }
+            }, 30); // Controls scroll smoothness
+        };
+
+        // Pause on user interaction
+        const pauseScrolling = () => {
+            isPaused = true;
+        };
+
+        // Resume after user stops interacting
+        const resumeScrolling = () => {
+            setTimeout(() => {
+                isPaused = false;
+            }, 2000); // 2 second delay before resuming
+        };
+
+        // Detect touch/mouse events to pause scrolling
+        scrollContainer.addEventListener('mousedown', pauseScrolling);
+        scrollContainer.addEventListener('touchstart', pauseScrolling);
+        scrollContainer.addEventListener('mouseup', resumeScrolling);
+        scrollContainer.addEventListener('touchend', resumeScrolling);
+
+        // Change direction periodically
+        const directionChange = setInterval(() => {
+            if (Math.random() > 0.5) { // 50% chance to change direction
+                scrollDirection *= -1;
+                scrollSpeed = Math.random() * 0.5 + 0.8; // Random speed between 0.8 and 1.3
+            }
+        }, 8000); // Change direction randomly about every 8 seconds
+
+        startScrolling();
+
+        return () => {
+            clearInterval(scrollInterval);
+            clearInterval(directionChange);
+            scrollContainer.removeEventListener('mousedown', pauseScrolling);
+            scrollContainer.removeEventListener('touchstart', pauseScrolling);
+            scrollContainer.removeEventListener('mouseup', resumeScrolling);
+            scrollContainer.removeEventListener('touchend', resumeScrolling);
+        };
+    }, [isMenuOpen]);
+
     // Popular search suggestions
     const popularSearches = ["Wireless Earbuds", "Summer Dresses", "Smart Watch", "Kitchen Gadgets"];
 
@@ -112,20 +182,30 @@ function MobileNav() {
                         </div>
                     </div>
 
-                    {/* Category pills - horizontal scrollable with custom scrollbar */}
+                    {/* Category pills - auto-scrolling carousel with infinite effect */}
                     <div className="mt-3 relative">
-                        <div className="overflow-x-auto flex space-x-2 pb-1 scrollbar-hide">
-                            {categories.map((category) => (
+                        <div className="overflow-x-auto flex space-x-3 pb-1 scrollbar-hide"
+                            style={{
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none',
+                                WebkitOverflowScrolling: 'touch',
+                                scrollBehavior: 'auto'
+                            }}
+                            id="category-scroll-container">
+                            {/* Repeated categories for infinite scroll effect */}
+                            {[...categories, ...categories, ...categories].map((category, index) => (
                                 <button
-                                    key={category.name}
+                                    key={`${category.name}-${index}`}
                                     onClick={() => selectCategory(category.name)}
-                                    className="flex items-center space-x-1 bg-gray-50 hover:bg-orange-50 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors duration-200"
+                                    className="flex items-center space-x-1.5 bg-gray-50 hover:bg-orange-50 px-3.5 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors duration-200 flex-shrink-0 select-none"
                                 >
-                                    <span>{category.icon}</span>
+                                    <span className="text-lg">{category.icon}</span>
                                     <span>{category.name}</span>
                                 </button>
                             ))}
                         </div>
+                        <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                         <div className="absolute left-0 right-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 opacity-40 rounded-full"></div>
                     </div>
                 </div>
