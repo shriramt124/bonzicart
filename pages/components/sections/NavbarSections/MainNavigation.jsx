@@ -1,5 +1,6 @@
 
 import { ChevronDown, Sparkles, Tag } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -81,7 +82,9 @@ function MainNavigation({ categories }) {
                                                     <h3 className="font-semibold text-gray-900 mb-2">{category.trending}</h3>
                                                     <p className="text-xs text-gray-600 mb-4">Limited time offer, shop now while supplies last!</p>
                                                 </div>
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={200}
                                                     src={category.image}
                                                     alt={category.name}
                                                     className="rounded-lg w-full object-cover"
