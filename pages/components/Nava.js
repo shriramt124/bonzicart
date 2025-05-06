@@ -3,8 +3,8 @@ import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown, Bell, Sparkles
 import Link from 'next/link';
 import Image from 'next/image';
 import { categories, trendingProducts } from '@/constants/NavbarConstants';
-
-
+import TrendingProducts from './sections/NavbarSections/TrendingProducts';
+import MainNavigation from './sections/NavbarSections/MainNavigation';
 function Nava() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -51,9 +51,6 @@ function Nava() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
-
-
     return (
         <header className="sticky top-0 z-50 w-full bg-white shadow-lg transition-shadow duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +78,6 @@ function Nava() {
                             </div>
                         </Link>
                     </div>
-
                     {/* Enhanced Search bar - hidden on mobile, visible on larger screens */}
                     <div
                         ref={searchRef}
@@ -199,28 +195,11 @@ function Nava() {
                                     </div>
 
                                     {/* Trending Products */}
-                                    <div className="border-t border-gray-100 bg-gray-50 rounded-b-lg p-4">
-                                        <h3 className="text-sm font-semibold text-gray-700 mb-3">Trending Products</h3>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            {trendingProducts.map((product, index) => (
-                                                <Link href="/" key={index} className="group block bg-white rounded-lg p-2 hover:shadow-md transition-all duration-200">
-                                                    <div className="relative mb-2">
-                                                        <img src={product.image} alt={product.name} className="w-full h-auto rounded" />
-                                                        <span className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded">
-                                                            {product.discount}
-                                                        </span>
-                                                    </div>
-                                                    <h4 className="text-xs font-medium text-gray-800 line-clamp-1 group-hover:text-orange-600">{product.name}</h4>
-                                                    <p className="text-xs font-semibold text-orange-500 mt-1">{product.price}</p>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <TrendingProducts trendingProducts={trendingProducts} />
                                 </div>
                             )}
                         </div>
                     </div>
-
                     {/* Right side icons */}
                     <div className="flex items-center space-x-1 sm:space-x-5">
                         <button className="hidden lg:flex items-center text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 p-2 rounded-full hover:bg-orange-50">
@@ -311,213 +290,9 @@ function Nava() {
                         </div>
                     </div>
                 </div>
-
-                {/* Mobile search - only visible on mobile */}
-                <div className="mt-4 md:hidden">
-                    <div className="relative flex items-center">
-                        <input
-                            type="text"
-                            placeholder="Search products..."
-                            className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
-                        />
-                        <Search size={18} className="absolute left-3 text-gray-400" />
-                    </div>
-                </div>
-
-                {/* Navigation - hidden on mobile, shown on larger screens */}
-                <nav className="hidden lg:flex items-center justify-between mt-5 pb-2">
-                    {/* Category navigation */}
-                    <div className="flex space-x-6">
-                        {categories.map((category) => (
-                            <div key={category.name} className="relative group">
-                                <button className="flex items-center text-gray-700 hover:text-orange-500 font-semibold text-sm transition-colors duration-200 pb-1 group-hover:border-b-2 group-hover:border-orange-500">
-                                    {category.name}
-                                    <ChevronDown size={16} className="ml-1.5 group-hover:rotate-180 transition-transform duration-200" />
-                                </button>
-
-                                {/* Enhanced Mega menu */}
-                                <div className="absolute left-0 mt-2 w-screen max-w-4xl bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20 -translate-x-1/4">
-                                    <div className="grid grid-cols-4 gap-6 p-6">
-                                        <div className="col-span-1">
-                                            <h3 className="text-sm font-bold text-gray-900 tracking-wide mb-4">
-                                                {category.name} Categories
-                                            </h3>
-                                            <ul className="space-y-3">
-                                                {category.featured.map((item) => (
-                                                    <li key={item}>
-                                                        <Link href="#" className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center">
-                                                            <span className="w-1.5 h-1.5 bg-gray-300 rounded-full mr-2"></span>
-                                                            {item}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                                <li>
-                                                    <Link href="#" className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center">
-                                                        <span className="w-1.5 h-1.5 bg-gray-300 rounded-full mr-2"></span>
-                                                        View All
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-span-2">
-                                            <h3 className="text-sm font-bold text-gray-900 tracking-wide mb-4">
-                                                Featured Collections
-                                            </h3>
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <Link href="#" className="group block">
-                                                    <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200">
-                                                        <h4 className="font-medium text-sm mb-1 group-hover:text-orange-600">New Arrivals</h4>
-                                                        <p className="text-xs text-gray-600">Latest {category.name.toLowerCase()}</p>
-                                                    </div>
-                                                </Link>
-                                                <Link href="#" className="group block">
-                                                    <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200">
-                                                        <h4 className="font-medium text-sm mb-1 group-hover:text-orange-600">Best Sellers</h4>
-                                                        <p className="text-xs text-gray-600">Top-rated products</p>
-                                                    </div>
-                                                </Link>
-                                                <Link href="#" className="group block">
-                                                    <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200">
-                                                        <h4 className="font-medium text-sm mb-1 group-hover:text-orange-600">Special Deals</h4>
-                                                        <p className="text-xs text-gray-600">Limited-time offers</p>
-                                                    </div>
-                                                </Link>
-                                                <Link href="#" className="group block">
-                                                    <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200">
-                                                        <h4 className="font-medium text-sm mb-1 group-hover:text-orange-600">Clearance</h4>
-                                                        <p className="text-xs text-gray-600">Up to 70% off</p>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <div className="bg-orange-50 rounded-lg p-4 h-full flex flex-col justify-between">
-                                                <div>
-                                                    <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded-md mb-3">Trending Now</span>
-                                                    <h3 className="font-semibold text-gray-900 mb-2">{category.trending}</h3>
-                                                    <p className="text-xs text-gray-600 mb-4">Limited time offer, shop now while supplies last!</p>
-                                                </div>
-                                                <img
-                                                    src={category.image}
-                                                    alt={category.name}
-                                                    className="rounded-lg w-full object-cover"
-                                                />
-                                                <Link href="#" className="mt-3 text-xs font-semibold text-orange-500 hover:text-orange-600 transition-colors duration-200 inline-flex items-center">
-                                                    Shop Collection
-                                                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                                    </svg>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Secondary navigation */}
-                    <div className="flex items-center space-x-8 text-sm">
-                        <Link href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200 flex items-center">
-                            <Tag size={16} className="mr-1.5" />
-                            <span>Deals</span>
-                        </Link>
-                        <Link href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200 flex items-center">
-                            <Sparkles size={16} className="mr-1.5" />
-                            <span>New Arrivals</span>
-                        </Link>
-                        <Link href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Sell with Us</Link>
-                        <Link href="#" className="text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200">Help</Link>
-                    </div>
-                </nav>
-            </div>
-
-            {/* Enhanced Mobile menu, toggle on/off based on menu state */}
-            <div className={`${isOpen ? 'block' : 'hidden'} lg:hidden`}>
-                <div className="px-4 pt-3 pb-4 space-y-1 bg-white border-t border-gray-200 mt-4">
-                    {categories.map((category) => (
-                        <div key={category.name} className="py-1">
-                            <button className="flex items-center justify-between w-full text-left px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors duration-200">
-                                <span className="font-medium">{category.name}</span>
-                                <ChevronDown size={16} />
-                            </button>
-                        </div>
-                    ))}
-                    <hr className="my-3" />
-                    <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">
-                        <Tag size={16} className="mr-2" />
-                        <span>Deals</span>
-                    </Link>
-                    <Link href="#" className="flex items-center px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">
-                        <Sparkles size={16} className="mr-2" />
-                        <span>New Arrivals</span>
-                    </Link>
-                    <Link href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Sell with Us</Link>
-                    <Link href="#" className="block px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 rounded-lg font-medium transition-colors duration-200">Help</Link>
-
-                    <hr className="my-3" />
-
-                    {/* Mobile account links */}
-                    <div className="bg-gray-50 rounded-lg p-4 mt-3">
-                        <div className="flex items-center mb-3">
-                            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 mr-3">
-                                <User size={20} />
-                            </div>
-                            <div>
-                                <div className="flex space-x-2">
-                                    <Link href="#" className="text-sm font-semibold text-orange-500 hover:text-orange-600">Sign In</Link>
-                                    <span className="text-sm text-gray-400">|</span>
-                                    <Link href="#" className="text-sm font-semibold text-orange-500 hover:text-orange-600">Register</Link>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="space-y-2 mt-4">
-                            <Link href="#" className="flex items-center py-2 text-sm text-gray-700">
-                                <ShoppingCart size={16} className="mr-3 text-gray-500" />
-                                <span>My Orders</span>
-                                <span className="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full">3</span>
-                            </Link>
-                            <Link href="#" className="flex items-center py-2 text-sm text-gray-700">
-                                <Heart size={16} className="mr-3 text-gray-500" />
-                                <span>My Wishlist</span>
-                            </Link>
-                            <Link href="#" className="flex items-center py-2 text-sm text-gray-700">
-                                <Gift size={16} className="mr-3 text-gray-500" />
-                                <span>My Rewards</span>
-                                <span className="ml-auto bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-full">$15 off</span>
-                            </Link>
-                            <Link href="#" className="flex items-center py-2 text-sm text-gray-700">
-                                <Tag size={16} className="mr-3 text-gray-500" />
-                                <span>My Coupons</span>
-                                <span className="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full">2</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Mobile quick links */}
-                    <div className="grid grid-cols-2 gap-3 mt-4">
-                        <Link href="#" className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-3 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">
-                            <Bell size={20} className="mb-1" />
-                            <span className="text-xs font-medium">Notifications</span>
-                        </Link>
-                        <Link href="#" className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-3 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">
-                            <Tag size={20} className="mb-1" />
-                            <span className="text-xs font-medium">Offers</span>
-                        </Link>
-                        <Link href="#" className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-3 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">
-                            <Gift size={20} className="mb-1" />
-                            <span className="text-xs font-medium">Gift Cards</span>
-                        </Link>
-                        <Link href="#" className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-3 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200">
-                            <User size={20} className="mb-1" />
-                            <span className="text-xs font-medium">Account</span>
-                        </Link>
-                    </div>
-                </div>
+                <MainNavigation categories={categories} />
             </div>
         </header>
     );
 }
-
 export default Nava;

@@ -1,24 +1,17 @@
 import "@/styles/globals.css";
-
-import Footer from "./components/Footer";
-import Nava from "./components/Nava";
-import MobileNav from "./components/MobileNav";
+import MainLayout from "./components/layouts/MainLayout";
 
 export default function App({ Component, pageProps }) {
+  // Check if the current page is an auth page
+  const isAuthPage = Component.name === 'Login' || Component.name === 'Register';
+
+  if (isAuthPage) {
+    return <Component {...pageProps} />;
+  }
+
   return (
-    <>
-      {/* Desktop navigation - hidden on mobile */}
-      <div className="hidden lg:block sticky top-0 z-50">
-        <Nava />
-      </div>
-
-      {/* Mobile navigation - hidden on desktop */}
-      <div className="lg:hidden">
-        <MobileNav />
-      </div>
-
+    <MainLayout>
       <Component {...pageProps} />
-      <Footer />
-    </>
+    </MainLayout>
   );
 }
