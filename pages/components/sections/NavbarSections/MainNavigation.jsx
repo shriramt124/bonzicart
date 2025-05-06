@@ -12,7 +12,7 @@ function MainNavigation({ categories }) {
                 {/* Category navigation */}
                 < div className="flex space-x-6" >
                     {
-                        categories.map((category) => (
+                        categories?.map((category) => (
                             <div key={category.name} className="relative group">
                                 <button className="flex items-center text-gray-700 hover:text-orange-500 font-semibold text-sm transition-colors duration-200 pb-1 group-hover:border-b-2 group-hover:border-orange-500">
                                     {category.name}
