@@ -31,3 +31,64 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #ea580c; /* orange-600 */
 }
+
+/* Deals ticker animation */
+.deals-ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  height: 28px;
+  position: relative;
+}
+
+.deals-ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 25s linear infinite;
+}
+
+.deals-ticker-item {
+  display: inline-block;
+  padding: 0 2rem;
+  font-weight: 500;
+  color: white;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-170%);
+  }
+}
+
+.deals-ticker-wrap:hover .deals-ticker {
+  animation-play-state: paused;
+}
+
+/* Hero Carousel Styling */
+.hero-carousel {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide {
+  opacity: 0;
+  z-index: 1;
+}
+
+.hero-slide:nth-child(1) {
+  z-index: 3;
+}
+
+@keyframes carouselFade {
+  0%, 20% {
+    opacity: 1;
+    z-index: 3;
+  }
+  33%, 100% {
+    opacity: 0;
+    z-index: 1;
+  }
+}
