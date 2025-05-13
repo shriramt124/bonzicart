@@ -111,7 +111,7 @@ const FilterSidebar = ({
           <input
             type="checkbox"
             id={`${prefix}discount`}
-            checked={activeFilters.discount}
+            checked={activeFilters?.discount}
             onChange={() => handleFilterChange('discount', null)}
             className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
           />
