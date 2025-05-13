@@ -28,7 +28,15 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
             {product.discount}
           </span>
         )}
-        {/* No hover overlay - removed as requested */}
+        {/* Quick action buttons */}
+        <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-2">
+          <button className="bg-white text-gray-800 p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <Heart size={18} />
+          </button>
+          <button className="bg-white text-gray-800 p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors duration-200">
+            <ShoppingCart size={18} />
+          </button>
+        </div>
       </div>
       
       <div className="p-4">
@@ -60,16 +68,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
         
         <p className="text-xs text-gray-500 line-clamp-1 mb-2">{product.description}</p>
         
-        <div className="flex items-baseline justify-between">
-          <div>
-            <span className="text-lg font-bold text-orange-500">{product.price}</span>
-            {product.originalPrice && (
-              <span className="ml-2 text-sm text-gray-500 line-through">{product.originalPrice}</span>
-            )}
-          </div>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full transition-colors duration-200">
-            <ShoppingCart size={16} />
-          </button>
+        <div className="flex items-baseline">
+          <span className="text-lg font-bold text-orange-500">{product.price}</span>
+          {product.originalPrice && (
+            <span className="ml-2 text-sm text-gray-500 line-through">{product.originalPrice}</span>
+          )}
         </div>
       </div>
     </div>
