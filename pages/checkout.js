@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 
 export default function CheckoutPage() {
     return (
@@ -141,9 +142,11 @@ export default function CheckoutPage() {
 
                         {/* Product Preview */}
                         <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6 pb-4 border-b border-gray-200">
-                            <img
+                            <Image
                                 src="/product-image.jpg"
                                 alt="Product"
+                                width={80}
+                                height={80}
                                 className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded"
                             />
                             <div>

@@ -378,7 +378,7 @@ const SearchPage = () => {
   const activeFilterCount = getActiveFilterCount();
 
   return (
-    <>
+    <MainLayout>
       <div className="py-6 w-full">
         {/* Search Results Info */}
         <div className="mb-4">
@@ -628,7 +628,7 @@ const SearchPage = () => {
                   No products found
                 </h2>
                 <p className="text-gray-500 mb-6">
-                  We couldn't find any products matching your search criteria.
+                  We couldn&apos;t find any products matching your search criteria.
                 </p>
                 <button
                   onClick={clearAllFilters}
@@ -690,7 +690,7 @@ const SearchPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </MainLayout>
   );
 };
 

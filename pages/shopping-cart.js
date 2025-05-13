@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 
 function ShoppingCart() {
@@ -69,9 +70,11 @@ function ShoppingCart() {
                                                     />
                                                 </div>
                                                 <div className="w-24 h-24 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
-                                                    <img
+                                                    <Image
                                                         src={item.image}
                                                         alt={item.name}
+                                                        width={96}
+                                                        height={96}
                                                         className="w-full h-full object-cover"
                                                     />
                                                 </div>

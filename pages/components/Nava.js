@@ -1140,12 +1140,14 @@ function Nava() {
                                                             supplies last!
                                                         </p>
                                                     </div>
-                                                    <img
+                                                    <Image
                                                         src={
                                                             category.image ||
                                                             "https://admin.bonzicart.com/image/media-storage/28/171/2024100318385943475.png?size=l"
                                                         }
                                                         alt={category.name}
+                                                        width={200}
+                                                        height={150}
                                                         className="rounded-lg w-full object-cover"
                                                     />
                                                     <Link
