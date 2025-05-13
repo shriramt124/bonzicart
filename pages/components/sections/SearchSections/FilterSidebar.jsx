@@ -2,36 +2,36 @@
 import React from 'react';
 import { X, Star } from 'lucide-react';
 
-const FilterSidebar = ({ 
-  activeFilters, 
-  handleFilterChange, 
-  clearAllFilters, 
-  categories, 
-  priceRanges, 
-  ratings, 
-  isMobile = false 
+const FilterSidebar = ({
+  activeFilters,
+  handleFilterChange,
+  clearAllFilters,
+  categories,
+  priceRanges,
+  ratings,
+  isMobile = false
 }) => {
   // Get prefix for mobile view IDs to avoid duplicate IDs
   const prefix = isMobile ? 'm-' : '';
-  
+
   return (
     <div className={`bg-white rounded-lg ${!isMobile ? 'shadow-sm border border-gray-200' : ''} p-4`}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Filters</h2>
-        {(activeFilters.categories.length > 0 || 
-          activeFilters.priceRange.length > 0 || 
-          activeFilters.rating || 
-          activeFilters.discount || 
+        {(activeFilters.categories.length > 0 ||
+          activeFilters.priceRange.length > 0 ||
+          activeFilters.rating ||
+          activeFilters.discount ||
           activeFilters.freeShipping) && (
-          <button 
-            onClick={clearAllFilters}
-            className="text-xs text-orange-500 hover:text-orange-700 font-medium"
-          >
-            Clear All
-          </button>
-        )}
+            <button
+              onClick={clearAllFilters}
+              className="text-xs text-orange-500 hover:text-orange-700 font-medium"
+            >
+              Clear All
+            </button>
+          )}
       </div>
-      
+
       {/* Categories Filter */}
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Categories</h3>
@@ -52,7 +52,7 @@ const FilterSidebar = ({
           ))}
         </div>
       </div>
-      
+
       {/* Price Range Filter */}
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Price</h3>
@@ -73,7 +73,7 @@ const FilterSidebar = ({
           ))}
         </div>
       </div>
-      
+
       {/* Rating Filter */}
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Customer Rating</h3>
@@ -104,7 +104,7 @@ const FilterSidebar = ({
           ))}
         </div>
       </div>
-      
+
       {/* Other Filters */}
       <div>
         <div className="flex items-center mb-3">

@@ -42,6 +42,7 @@ function Nava() {
     const [notificationDropdown, setNotificationDropdown] = useState(false);
     const [openMegaMenu, setOpenMegaMenu] = useState(null);
     const [showLocationPicker, setShowLocationPicker] = useState(false);
+    const [currentPath, setCurrentPath] = useState("/"); // Added state for current path
 
     // Refs for click outside handlers
     const searchRef = useRef(null);
@@ -146,20 +147,35 @@ function Nava() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            setScrolled(scrollPosition > 80);
+            setScrolled(scrollPosition > 180);
+        };
+
+        const handlePathChange = () => {
+            setCurrentPath(window.location.pathname);
         };
 
         window.addEventListener("scroll", handleScroll);
+        window.addEventListener("popstate", handlePathChange); // For browser navigation
+        handlePathChange(); // Set initial path
 
         // Handle clicks outside dropdowns
         const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target)
+            ) {
                 setShowSearchSuggestions(false);
             }
-            if (accountRef.current && !accountRef.current.contains(event.target)) {
+            if (
+                accountRef.current &&
+                !accountRef.current.contains(event.target)
+            ) {
                 setAccountDropdown(false);
             }
-            if (categoryRef.current && !categoryRef.current.contains(event.target)) {
+            if (
+                categoryRef.current &&
+                !categoryRef.current.contains(event.target)
+            ) {
                 setCategoryDropdown(false);
             }
             if (
@@ -168,7 +184,10 @@ function Nava() {
             ) {
                 setNotificationDropdown(false);
             }
-            if (locationRef.current && !locationRef.current.contains(event.target)) {
+            if (
+                locationRef.current &&
+                !locationRef.current.contains(event.target)
+            ) {
                 setShowLocationPicker(false);
             }
         };
@@ -177,11 +196,12 @@ function Nava() {
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("popstate", handlePathChange);
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
-    // Header animation class based on scroll
+    // Enhanced header animation class based on scroll
     const headerAnimationClass = scrolled
         ? "shadow-lg translate-y-0"
         : "shadow-sm -translate-y-0";
@@ -201,9 +221,13 @@ function Nava() {
                             </span>
                         </div>
                         <div className="deals-ticker-item flex items-center">
-                            <Calendar size={14} className="flex-shrink-0 mr-1.5" />
+                            <Calendar
+                                size={14}
+                                className="flex-shrink-0 mr-1.5"
+                            />
                             <span className="text-xs font-medium whitespace-nowrap">
-                                3-DAY WEEKEND SPECIAL: Extra 15% off with code WEEKEND15
+                                3-DAY WEEKEND SPECIAL: Extra 15% off with code
+                                WEEKEND15
                             </span>
                         </div>
                         <div className="deals-ticker-item flex items-center">
@@ -213,13 +237,19 @@ function Nava() {
                             </span>
                         </div>
                         <div className="deals-ticker-item flex items-center">
-                            <ShippingIcon size={14} className="flex-shrink-0 mr-1.5" />
+                            <ShippingIcon
+                                size={14}
+                                className="flex-shrink-0 mr-1.5"
+                            />
                             <span className="text-xs font-medium whitespace-nowrap">
                                 FREE SHIPPING on all orders over $50
                             </span>
                         </div>
                         <div className="deals-ticker-item flex items-center">
-                            <ShieldCheck size={14} className="flex-shrink-0 mr-1.5" />
+                            <ShieldCheck
+                                size={14}
+                                className="flex-shrink-0 mr-1.5"
+                            />
                             <span className="text-xs font-medium whitespace-nowrap">
                                 30-DAY MONEY BACK GUARANTEE on all products
                             </span>
@@ -228,7 +258,7 @@ function Nava() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Utility Bar - Enhanced with more options and visual improvements */}
                 <div className="py-2 border-b border-gray-100 hidden lg:flex justify-between text-xs text-gray-600">
                     <div className="flex items-center space-x-4">
@@ -261,7 +291,9 @@ function Nava() {
                         {/* Location Selector */}
                         <div className="relative" ref={locationRef}>
                             <button
-                                onClick={() => setShowLocationPicker(!showLocationPicker)}
+                                onClick={() =>
+                                    setShowLocationPicker(!showLocationPicker)
+                                }
                                 className="flex items-center hover:text-orange-500 transition-colors duration-200"
                             >
                                 <MapPin size={12} className="mr-1" />
@@ -360,7 +392,9 @@ function Nava() {
                     {/* Enhanced Search bar with better UI/UX */}
                     <div
                         ref={searchRef}
-                        className={`hidden md:flex flex-1 max-w-xl mx-4 relative ${searchFocused ? "ring-2 ring-orange-400 rounded-lg shadow-md" : ""
+                        className={`hidden md:flex flex-1 max-w-xl mx-4 relative ${searchFocused
+                            ? "ring-2 ring-orange-400 rounded-lg shadow-md"
+                            : ""
                             }`}
                     >
                         <div className="relative w-full flex items-center">
@@ -370,7 +404,9 @@ function Nava() {
                             >
                                 <button
                                     type="button"
-                                    onClick={() => setCategoryDropdown(!categoryDropdown)}
+                                    onClick={() =>
+                                        setCategoryDropdown(!categoryDropdown)
+                                    }
                                     className="inline-flex justify-between items-center w-36 px-3 py-2.5 border border-r-0 border-gray-200 bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-l-lg transition-colors duration-200"
                                 >
                                     <span>All Categories</span>
@@ -383,7 +419,11 @@ function Nava() {
 
                                 {categoryDropdown && (
                                     <div className="origin-top-left absolute left-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20 transition-all duration-200">
-                                        <div className="py-1" role="menu" aria-orientation="vertical">
+                                        <div
+                                            className="py-1"
+                                            role="menu"
+                                            aria-orientation="vertical"
+                                        >
                                             <button
                                                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                                 role="menuitem"
@@ -409,7 +449,9 @@ function Nava() {
                                     type="text"
                                     placeholder="Search for products, brands, and more..."
                                     value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    onChange={(e) =>
+                                        setSearchInput(e.target.value)
+                                    }
                                     onFocus={() => {
                                         setSearchFocused(true);
                                         setShowSearchSuggestions(true);
@@ -428,7 +470,9 @@ function Nava() {
 
                             <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2.5 rounded-r-lg transition-colors duration-200 flex items-center">
                                 <Search size={18} />
-                                <span className="ml-1 hidden xl:inline">Search</span>
+                                <span className="ml-1 hidden xl:inline">
+                                    Search
+                                </span>
                             </button>
 
                             {/* Enhanced Search Suggestions Dropdown */}
@@ -448,15 +492,8 @@ function Nava() {
                                                             size={16}
                                                             className="text-gray-400 mr-2"
                                                         />
-                                                        <span className="text-sm">{searchInput}</span>
-                                                    </div>
-                                                    <div className="flex items-center py-1.5 px-3 rounded-md hover:bg-orange-50 cursor-pointer">
-                                                        <Search
-                                                            size={16}
-                                                            className="text-gray-400 mr-2"
-                                                        />
                                                         <span className="text-sm">
-                                                            {searchInput} best deals
+                                                            {searchInput}
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center py-1.5 px-3 rounded-md hover:bg-orange-50 cursor-pointer">
@@ -465,7 +502,18 @@ function Nava() {
                                                             className="text-gray-400 mr-2"
                                                         />
                                                         <span className="text-sm">
-                                                            popular {searchInput}
+                                                            {searchInput} best
+                                                            deals
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-center py-1.5 px-3 rounded-md hover:bg-orange-50 cursor-pointer">
+                                                        <Search
+                                                            size={16}
+                                                            className="text-gray-400 mr-2"
+                                                        />
+                                                        <span className="text-sm">
+                                                            popular{" "}
+                                                            {searchInput}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -483,15 +531,20 @@ function Nava() {
                                                 </button>
                                             </div>
                                             <div className="mt-2 flex flex-wrap gap-2">
-                                                {recentSearches.map((item, index) => (
-                                                    <button
-                                                        key={index}
-                                                        className="flex items-center bg-gray-50 hover:bg-gray-100 rounded-full px-3 py-1 text-xs text-gray-600"
-                                                    >
-                                                        <Clock size={12} className="mr-1.5" />
-                                                        {item}
-                                                    </button>
-                                                ))}
+                                                {recentSearches.map(
+                                                    (item, index) => (
+                                                        <button
+                                                            key={index}
+                                                            className="flex items-center bg-gray-50 hover:bg-gray-100 rounded-full px-3 py-1 text-xs text-gray-600"
+                                                        >
+                                                            <Clock
+                                                                size={12}
+                                                                className="mr-1.5"
+                                                            />
+                                                            {item}
+                                                        </button>
+                                                    ),
+                                                )}
                                             </div>
                                         </div>
 
@@ -501,21 +554,28 @@ function Nava() {
                                                 Popular Now
                                             </h3>
                                             <div className="mt-2 flex flex-wrap gap-2">
-                                                {popularSearches.map((item, index) => (
-                                                    <button
-                                                        key={index}
-                                                        className="flex items-center bg-orange-50 hover:bg-orange-100 rounded-full px-3 py-1 text-xs text-orange-600"
-                                                    >
-                                                        <Sparkles size={12} className="mr-1.5" />
-                                                        {item}
-                                                    </button>
-                                                ))}
+                                                {popularSearches.map(
+                                                    (item, index) => (
+                                                        <button
+                                                            key={index}
+                                                            className="flex items-center bg-orange-50 hover:bg-orange-100 rounded-full px-3 py-1 text-xs text-orange-600"
+                                                        >
+                                                            <Sparkles
+                                                                size={12}
+                                                                className="mr-1.5"
+                                                            />
+                                                            {item}
+                                                        </button>
+                                                    ),
+                                                )}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Trending Products */}
-                                    <TrendingProducts trendingProducts={trendingProducts} />
+                                    <TrendingProducts
+                                        trendingProducts={trendingProducts}
+                                    />
                                 </div>
                             )}
                         </div>
@@ -527,8 +587,12 @@ function Nava() {
                         <button className="hidden xl:flex items-center text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 p-1.5 rounded-full hover:bg-orange-50">
                             <Headphones size={20} className="mr-1" />
                             <div className="flex flex-col items-start">
-                                <span className="text-xs text-gray-500">Support</span>
-                                <span className="font-medium text-xs">24/7 Help</span>
+                                <span className="text-xs text-gray-500">
+                                    Support
+                                </span>
+                                <span className="font-medium text-xs">
+                                    24/7 Help
+                                </span>
                             </div>
                         </button>
 
@@ -547,7 +611,9 @@ function Nava() {
                         <div className="relative" ref={notificationRef}>
                             <button
                                 onClick={() => {
-                                    setNotificationDropdown(!notificationDropdown);
+                                    setNotificationDropdown(
+                                        !notificationDropdown,
+                                    );
                                     setAccountDropdown(false);
                                 }}
                                 className="hidden sm:flex items-center text-sm text-gray-600 hover:text-orange-500 p-1.5 rounded-full hover:bg-orange-50 relative transition-colors duration-200"
@@ -563,7 +629,9 @@ function Nava() {
                                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl py-3 ring-1 ring-black ring-opacity-5 focus:outline-none z-20 transition-all duration-200">
                                     <div className="px-4 py-2 border-b border-gray-100">
                                         <div className="flex items-center justify-between">
-                                            <h3 className="font-medium text-sm">Notifications</h3>
+                                            <h3 className="font-medium text-sm">
+                                                Notifications
+                                            </h3>
                                             <button className="text-xs text-orange-500 hover:text-orange-600">
                                                 Mark all as read
                                             </button>
@@ -574,7 +642,9 @@ function Nava() {
                                         {notifications.map((notification) => (
                                             <div
                                                 key={notification.id}
-                                                className={`px-4 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors duration-200 ${notification.isRead ? "opacity-70" : ""
+                                                className={`px-4 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors duration-200 ${notification.isRead
+                                                    ? "opacity-70"
+                                                    : ""
                                                     }`}
                                             >
                                                 <div className="flex">
@@ -587,9 +657,13 @@ function Nava() {
                                                                     : "bg-orange-100 text-orange-500"
                                                             }`}
                                                     >
-                                                        {notification.type === "order" ? (
-                                                            <ShoppingCart size={16} />
-                                                        ) : notification.type === "promo" ? (
+                                                        {notification.type ===
+                                                            "order" ? (
+                                                            <ShoppingCart
+                                                                size={16}
+                                                            />
+                                                        ) : notification.type ===
+                                                            "promo" ? (
                                                             <Tag size={16} />
                                                         ) : (
                                                             <Bell size={16} />
@@ -598,14 +672,20 @@ function Nava() {
                                                     <div className="flex-1">
                                                         <div className="flex items-start justify-between">
                                                             <h4 className="text-sm font-medium text-gray-900">
-                                                                {notification.title}
+                                                                {
+                                                                    notification.title
+                                                                }
                                                             </h4>
                                                             <span className="text-xs text-gray-500">
-                                                                {notification.time}
+                                                                {
+                                                                    notification.time
+                                                                }
                                                             </span>
                                                         </div>
                                                         <p className="text-xs text-gray-600 mt-0.5">
-                                                            {notification.message}
+                                                            {
+                                                                notification.message
+                                                            }
                                                         </p>
                                                     </div>
                                                     {!notification.isRead && (
@@ -622,7 +702,10 @@ function Nava() {
                                             className="flex items-center justify-center text-orange-500 hover:text-orange-600 text-sm font-medium"
                                         >
                                             View All Notifications
-                                            <ArrowRight size={14} className="ml-1" />
+                                            <ArrowRight
+                                                size={14}
+                                                className="ml-1"
+                                            />
                                         </Link>
                                     </div>
                                 </div>
@@ -633,8 +716,12 @@ function Nava() {
                         <button className="flex items-center text-sm text-gray-600 hover:text-orange-500 relative transition-colors duration-200 p-1.5 rounded-full hover:bg-orange-50">
                             <ShoppingCart size={20} />
                             <div className="hidden xl:flex flex-col items-start ml-1">
-                                <span className="text-xs text-gray-500">Cart</span>
-                                <span className="font-medium text-xs">$149.99</span>
+                                <span className="text-xs text-gray-500">
+                                    Cart
+                                </span>
+                                <span className="font-medium text-xs">
+                                    $149.99
+                                </span>
                             </div>
                             <span className="absolute -top-0.5 -right-0.5 bg-orange-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                                 3
@@ -653,8 +740,12 @@ function Nava() {
                             >
                                 <User size={20} />
                                 <div className="hidden xl:flex flex-col items-start ml-1">
-                                    <span className="text-xs text-gray-500">Account</span>
-                                    <span className="font-medium text-xs">My Profile</span>
+                                    <span className="text-xs text-gray-500">
+                                        Account
+                                    </span>
+                                    <span className="font-medium text-xs">
+                                        My Profile
+                                    </span>
                                 </div>
                                 <ChevronDown
                                     size={14}
@@ -672,7 +763,9 @@ function Nava() {
                                                 <User size={24} />
                                             </div>
                                             <div>
-                                                <p className="font-medium text-sm">Welcome!</p>
+                                                <p className="font-medium text-sm">
+                                                    Welcome!
+                                                </p>
                                                 <div className="flex space-x-2 mt-1">
                                                     <Link
                                                         href="#"
@@ -680,7 +773,9 @@ function Nava() {
                                                     >
                                                         Sign In
                                                     </Link>
-                                                    <span className="text-xs text-gray-400">|</span>
+                                                    <span className="text-xs text-gray-400">
+                                                        |
+                                                    </span>
                                                     <Link
                                                         href="#"
                                                         className="text-xs font-semibold text-orange-500 hover:text-orange-600"
@@ -697,14 +792,20 @@ function Nava() {
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <User size={18} className="mr-3 text-gray-500" />
+                                            <User
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>My Profile</span>
                                         </Link>
                                         <Link
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <ShoppingCart size={18} className="mr-3 text-gray-500" />
+                                            <ShoppingCart
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>My Orders</span>
                                             <span className="ml-auto bg-orange-100 text-orange-600 text-xs px-2 py-0.5 rounded-full">
                                                 3
@@ -714,7 +815,10 @@ function Nava() {
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <Heart size={18} className="mr-3 text-gray-500" />
+                                            <Heart
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>My Wishlist</span>
                                             <span className="ml-auto bg-purple-100 text-purple-600 text-xs px-2 py-0.5 rounded-full">
                                                 5
@@ -724,7 +828,10 @@ function Nava() {
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <Gift size={18} className="mr-3 text-gray-500" />
+                                            <Gift
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>My Rewards</span>
                                             <span className="ml-auto bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-full">
                                                 $15 off
@@ -734,7 +841,10 @@ function Nava() {
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <Tag size={18} className="mr-3 text-gray-500" />
+                                            <Tag
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>My Coupons</span>
                                             <span className="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full">
                                                 2
@@ -744,7 +854,10 @@ function Nava() {
                                             href="#"
                                             className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200"
                                         >
-                                            <Bookmark size={18} className="mr-3 text-gray-500" />
+                                            <Bookmark
+                                                size={18}
+                                                className="mr-3 text-gray-500"
+                                            />
                                             <span>Saved Items</span>
                                         </Link>
                                     </div>
@@ -775,15 +888,22 @@ function Nava() {
                     </div>
                 </div>
 
-                {/* Main Enhanced Navigation Bar */}
-                <nav className="hidden lg:flex items-center justify-between mt-2 pb-2 border-b border-gray-100">
+                {/* Main Enhanced Navigation Bar - Smooth transition when scrolled or not on home page */}
+                <nav
+                    className={`hidden lg:flex items-center justify-between mt-2 pb-2 border-b border-gray-100 transition-all duration-300 ease-in-out ${scrolled || currentPath !== "/"
+                        ? "max-h-0 opacity-0 overflow-hidden py-0 mt-0 border-b-0"
+                        : "max-h-20 opacity-100"
+                        }`}
+                >
                     {/* Category navigation with mega menu */}
                     <div className="flex space-x-5">
                         {categories.map((category) => (
                             <div key={category.name} className="relative group">
                                 <button
                                     className="flex items-center text-gray-700 hover:text-orange-500 font-semibold text-sm transition-colors duration-200 pb-1 group-hover:border-b-2 group-hover:border-orange-500"
-                                    onMouseEnter={() => setOpenMegaMenu(category.name)}
+                                    onMouseEnter={() =>
+                                        setOpenMegaMenu(category.name)
+                                    }
                                     onMouseLeave={() => setOpenMegaMenu(null)}
                                 >
                                     {category.name}
@@ -797,8 +917,12 @@ function Nava() {
                                 {openMegaMenu === category.name && (
                                     <div
                                         className="absolute left-0 mt-2 w-screen max-w-4xl bg-white rounded-lg shadow-xl z-20 -translate-x-1/4 animate-fadeIn transition-opacity duration-200 border border-gray-100"
-                                        onMouseEnter={() => setOpenMegaMenu(category.name)}
-                                        onMouseLeave={() => setOpenMegaMenu(null)}
+                                        onMouseEnter={() =>
+                                            setOpenMegaMenu(category.name)
+                                        }
+                                        onMouseLeave={() =>
+                                            setOpenMegaMenu(null)
+                                        }
                                     >
                                         <div className="grid grid-cols-4 gap-5 p-5">
                                             <div className="col-span-1">
@@ -806,17 +930,19 @@ function Nava() {
                                                     {category.name} Categories
                                                 </h3>
                                                 <ul className="space-y-2">
-                                                    {category.featured.map((item) => (
-                                                        <li key={item}>
-                                                            <Link
-                                                                href="#"
-                                                                className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center"
-                                                            >
-                                                                <span className="w-1.5 h-1.5 bg-orange-300 rounded-full mr-2"></span>
-                                                                {item}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
+                                                    {category.featured.map(
+                                                        (item) => (
+                                                            <li key={item}>
+                                                                <Link
+                                                                    href="#"
+                                                                    className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center"
+                                                                >
+                                                                    <span className="w-1.5 h-1.5 bg-orange-300 rounded-full mr-2"></span>
+                                                                    {item}
+                                                                </Link>
+                                                            </li>
+                                                        ),
+                                                    )}
                                                     <li>
                                                         <Link
                                                             href="#"
@@ -824,7 +950,10 @@ function Nava() {
                                                         >
                                                             <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></span>
                                                             View All
-                                                            <ArrowRight size={12} className="ml-1" />
+                                                            <ArrowRight
+                                                                size={12}
+                                                                className="ml-1"
+                                                            />
                                                         </Link>
                                                     </li>
                                                 </ul>
@@ -869,7 +998,10 @@ function Nava() {
                                                     Featured Collections
                                                 </h3>
                                                 <div className="grid grid-cols-2 gap-3">
-                                                    <Link href="#" className="group block">
+                                                    <Link
+                                                        href="#"
+                                                        className="group block"
+                                                    >
                                                         <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200 relative overflow-hidden">
                                                             <div className="absolute top-0 right-0 bg-orange-500 text-white text-[8px] px-1.5 py-0.5 font-medium">
                                                                 NEW
@@ -878,7 +1010,8 @@ function Nava() {
                                                                 New Arrivals
                                                             </h4>
                                                             <p className="text-xs text-gray-600">
-                                                                Latest {category.name.toLowerCase()}
+                                                                Latest{" "}
+                                                                {category.name.toLowerCase()}
                                                             </p>
                                                             <div className="flex items-center mt-2">
                                                                 <div className="w-6 h-6 rounded-full bg-white overflow-hidden border border-gray-200">
@@ -896,7 +1029,10 @@ function Nava() {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link href="#" className="group block">
+                                                    <Link
+                                                        href="#"
+                                                        className="group block"
+                                                    >
                                                         <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200 relative overflow-hidden">
                                                             <div className="absolute top-0 right-0 bg-green-500 text-white text-[8px] px-1.5 py-0.5 font-medium">
                                                                 POPULAR
@@ -905,7 +1041,8 @@ function Nava() {
                                                                 Best Sellers
                                                             </h4>
                                                             <p className="text-xs text-gray-600">
-                                                                Top-rated products
+                                                                Top-rated
+                                                                products
                                                             </p>
                                                             <div className="flex items-center mt-2">
                                                                 <div className="flex items-center text-orange-500 text-[10px]">
@@ -936,7 +1073,10 @@ function Nava() {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link href="#" className="group block">
+                                                    <Link
+                                                        href="#"
+                                                        className="group block"
+                                                    >
                                                         <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200 relative overflow-hidden">
                                                             <div className="absolute top-0 right-0 bg-red-500 text-white text-[8px] px-1.5 py-0.5 font-medium">
                                                                 SALE
@@ -945,11 +1085,13 @@ function Nava() {
                                                                 Special Deals
                                                             </h4>
                                                             <p className="text-xs text-gray-600">
-                                                                Limited-time offers
+                                                                Limited-time
+                                                                offers
                                                             </p>
                                                             <div className="flex items-center mt-2">
                                                                 <span className="text-red-500 text-xs font-medium">
-                                                                    Up to 40% Off
+                                                                    Up to 40%
+                                                                    Off
                                                                 </span>
                                                                 <span className="ml-2 text-[10px] bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded">
                                                                     Ends in 2d
@@ -957,7 +1099,10 @@ function Nava() {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <Link href="#" className="group block">
+                                                    <Link
+                                                        href="#"
+                                                        className="group block"
+                                                    >
                                                         <div className="bg-gray-100 rounded-lg p-3 mb-2 group-hover:bg-orange-50 transition-colors duration-200 relative overflow-hidden">
                                                             <div className="absolute top-0 right-0 bg-purple-500 text-white text-[8px] px-1.5 py-0.5 font-medium">
                                                                 HOT
@@ -990,7 +1135,9 @@ function Nava() {
                                                             {category.trending}
                                                         </h3>
                                                         <p className="text-xs text-gray-600 mb-4">
-                                                            Limited time offer, shop now while supplies last!
+                                                            Limited time offer,
+                                                            shop now while
+                                                            supplies last!
                                                         </p>
                                                     </div>
                                                     <img
@@ -1044,7 +1191,9 @@ function Nava() {
                                     {deal.icon}
                                 </span>
                                 <div className="flex flex-col">
-                                    <span className="text-xs font-semibold">{deal.title}</span>
+                                    <span className="text-xs font-semibold">
+                                        {deal.title}
+                                    </span>
                                     <span className="text-[10px] text-gray-500">
                                         {deal.description}
                                     </span>
