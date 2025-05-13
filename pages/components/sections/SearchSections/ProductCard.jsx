@@ -59,14 +59,14 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
               <Star
                 key={i}
                 size={12}
-                className={`${i < Math.floor(product.rating)
+                className={`${i < Math.floor(product?.rating)
                     ? "text-yellow-400 fill-yellow-400"
                     : "text-gray-300"
                   }`}
               />
             ))}
           </div>
-          <span className="text-xs text-gray-500">({product.reviewCount})</span>
+          <span className="text-xs text-gray-500">({product?.reviewCount})</span>
         </div>
 
         {/* Price and Add to Cart Section */}
