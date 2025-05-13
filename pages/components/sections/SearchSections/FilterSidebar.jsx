@@ -18,11 +18,11 @@ const FilterSidebar = ({
     <div className={`bg-white rounded-lg ${!isMobile ? 'shadow-sm border border-gray-200' : ''} p-4`}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Filters</h2>
-        {(activeFilters?.categories.length > 0 ||
-          activeFilters.priceRange.length > 0 ||
-          activeFilters.rating ||
-          activeFilters.discount ||
-          activeFilters.freeShipping) && (
+        {(activeFilters?.categories?.length > 0 ||
+          activeFilters?.priceRange?.length > 0 ||
+          activeFilters?.rating ||
+          activeFilters?.discount ||
+          activeFilters?.freeShipping) && (
             <button
               onClick={clearAllFilters}
               className="text-xs text-orange-500 hover:text-orange-700 font-medium"
@@ -41,7 +41,7 @@ const FilterSidebar = ({
               <input
                 type="checkbox"
                 id={`${prefix}category-${index}`}
-                checked={activeFilters.categories.includes(category)}
+                checked={activeFilters?.categories?.includes(category)}
                 onChange={() => handleFilterChange('categories', category)}
                 className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
               />
@@ -62,7 +62,7 @@ const FilterSidebar = ({
               <input
                 type="checkbox"
                 id={`${prefix}price-${index}`}
-                checked={activeFilters.priceRange.includes(range.value)}
+                checked={activeFilters?.priceRange?.includes(range.value)}
                 onChange={() => handleFilterChange('priceRange', range.value)}
                 className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
               />
