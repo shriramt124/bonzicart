@@ -67,7 +67,7 @@ const FilterSidebar = ({
                 className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
               />
               <label htmlFor={`${prefix}price-${index}`} className="ml-2 text-sm text-gray-700">
-                {range.label}
+                {range?.label}
               </label>
             </div>
           ))}
@@ -78,19 +78,19 @@ const FilterSidebar = ({
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Customer Rating</h3>
         <div className="space-y-2">
-          {ratings.map((rating, index) => (
+          {ratings?.map((rating, index) => (
             <div key={index} className="flex items-center">
               <input
                 type="radio"
                 id={`${prefix}rating-${index}`}
                 name={`${prefix}rating`}
-                checked={activeFilters.rating === rating.value}
+                checked={activeFilters?.rating === rating?.value}
                 onChange={() => handleFilterChange('rating', rating.value)}
                 className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300"
               />
               <label htmlFor={`${prefix}rating-${index}`} className="ml-2 text-sm text-gray-700 flex items-center">
                 <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(5)]?.map((_, i) => (
                     <Star
                       key={i}
                       size={14}
@@ -123,7 +123,7 @@ const FilterSidebar = ({
           <input
             type="checkbox"
             id={`${prefix}freeShipping`}
-            checked={activeFilters.freeShipping}
+            checked={activeFilters?.freeShipping}
             onChange={() => handleFilterChange('freeShipping', null)}
             className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
           />
