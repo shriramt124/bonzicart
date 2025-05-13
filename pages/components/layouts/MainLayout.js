@@ -3,7 +3,7 @@ import Footer from '../Footer'
 import Nava from '../Nava'
 import MobileNav from '../MobileNav'
 
-function MainLayout({ children }) {
+function MainLayout({ children, hideSearchInNavbar = false }) {
     return (
         <>
             {/* Desktop navigation - hidden on mobile */}

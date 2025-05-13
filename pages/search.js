@@ -4,7 +4,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Search,
+  Search as SearchIcon,
   Filter,
   ChevronDown,
   ChevronRight,
@@ -12,7 +12,6 @@ import {
   Grid,
   List,
   Sliders,
-  Heart,
   ShoppingCart,
   Check,
   X,
@@ -21,163 +20,21 @@ import {
   Clock,
   TrendingUp,
 } from "lucide-react";
+import FilterSidebar from "./components/sections/SearchSections/FilterSidebar";
+import ProductCard from "./components/sections/SearchSections/ProductCard";
 
-// Sample data - in a real app, this would come from your API
-const sampleProducts = [
-  {
-    id: 1,
-    name: "Creative Galaxy Colorful Gradient Luminous Crystal Ball Night Light",
-    description: "Perfect for bedrooms and living spaces",
-    image: "/api/placeholder/300/300",
-    price: "$112.54",
-    originalPrice: "$149.99",
-    discount: "25% OFF",
-    badge: "Featured Product",
-    rating: 4.5,
-    reviewCount: 128,
-    sold: "1.2K+ sold",
-    category: "Home Decor",
-  },
-  {
-    id: 2,
-    name: "Self Mixing Electric Auto Stirring Mug Coffee Cup",
-    description: "Portable Smart Cup for your daily coffee",
-    image: "/api/placeholder/300/300",
-    price: "$43.50",
-    originalPrice: "$69.99",
-    discount: "38% OFF",
-    badge: "Best Seller",
-    rating: 4.8,
-    reviewCount: 356,
-    sold: "3.5K+ sold",
-    category: "Kitchen",
-  },
-  {
-    id: 3,
-    name: "Automatic Multi USB Cable Charger 3-in-1",
-    description: "Fast charging for all your devices",
-    image: "/api/placeholder/300/300",
-    price: "$9.99",
-    originalPrice: "$19.99",
-    discount: "50% OFF",
-    badge: "Popular",
-    rating: 4.2,
-    reviewCount: 420,
-    sold: "5K+ sold",
-    category: "Electronics",
-  },
-  {
-    id: 4,
-    name: "Rechargeable White Light Bedside Table Lamp",
-    description: "Adjustable brightness for reading and ambiance",
-    image: "/api/placeholder/300/300",
-    price: "$24.50",
-    originalPrice: "$35.00",
-    discount: "30% OFF",
-    badge: "",
-    rating: 4.3,
-    reviewCount: 89,
-    sold: "985 sold",
-    category: "Home Decor",
-  },
-  {
-    id: 5,
-    name: "Moon Lamp Crystal Ball Clouds LED Night Light",
-    description: "Beautiful mood lighting with realistic moon surface",
-    image: "/api/placeholder/300/300",
-    price: "$39.99",
-    originalPrice: "$59.99",
-    discount: "33% OFF",
-    badge: "Top Rated",
-    rating: 4.9,
-    reviewCount: 532,
-    sold: "4.5K+ sold",
-    category: "Home Decor",
-  },
-  {
-    id: 6,
-    name: "Car LED Door Warning Light - Safety First",
-    description: "Automatic warning lights for vehicle doors",
-    image: "/api/placeholder/300/300",
-    price: "$9.99",
-    originalPrice: "$19.99",
-    discount: "50% OFF",
-    badge: "",
-    rating: 4.1,
-    reviewCount: 76,
-    sold: "1.8K+ sold",
-    category: "Automotive",
-  },
-  {
-    id: 7,
-    name: "Mini HDMI Wireless Extender",
-    description: "Stream high-quality video up to 30m away",
-    image: "/api/placeholder/300/300",
-    price: "$29.99",
-    originalPrice: "$39.99",
-    discount: "25% OFF",
-    badge: "New",
-    rating: 4.4,
-    reviewCount: 45,
-    sold: "720 sold",
-    category: "Electronics",
-  },
-  {
-    id: 8,
-    name: "Memory Card Storage Bag Camera",
-    description: "Waterproof and shockproof protection",
-    image: "/api/placeholder/300/300",
-    price: "$8.99",
-    originalPrice: "$12.99",
-    discount: "31% OFF",
-    badge: "",
-    rating: 4.6,
-    reviewCount: 167,
-    sold: "2.3K+ sold",
-    category: "Photography",
-  },
-];
+// Import constants
+import { 
+  sampleProducts, 
+  categories, 
+  priceRanges, 
+  ratings, 
+  sortOptions, 
+  popularSearches, 
+  suggestedSearches 
+} from "../constants/SearchConstants";
 
-// Sample categories for filter
-const categories = [
-  "Electronics",
-  "Home Decor",
-  "Kitchen",
-  "Automotive",
-  "Beauty",
-  "Fashion",
-  "Sports",
-  "Photography",
-  "Toys & Kids",
-];
-
-// Price ranges for filter
-const priceRanges = [
-  { label: "Under $10", value: "0-10" },
-  { label: "$10 to $25", value: "10-25" },
-  { label: "$25 to $50", value: "25-50" },
-  { label: "$50 to $100", value: "50-100" },
-  { label: "Over $100", value: "100-999999" },
-];
-
-// Rating options for filter
-const ratings = [
-  { value: 4, label: "4★ & Up" },
-  { value: 3, label: "3★ & Up" },
-  { value: 2, label: "2★ & Up" },
-  { value: 1, label: "1★ & Up" },
-];
-
-// Sorting options
-const sortOptions = [
-  { value: "relevance", label: "Relevance" },
-  { value: "price_asc", label: "Price: Low to High" },
-  { value: "price_desc", label: "Price: High to Low" },
-  { value: "rating", label: "Customer Rating" },
-  { value: "newest", label: "Newest Arrivals" },
-];
-
-const Searchi = () => {
+const SearchPage = () => {
   const router = useRouter();
   const { query } = router;
 
@@ -205,24 +62,6 @@ const Searchi = () => {
     "kitchen gadgets",
     "wireless earbuds",
   ]);
-
-  // Popular searches
-  const popularSearches = [
-    "phone accessories",
-    "LED lights",
-    "smart home",
-    "desk accessories",
-    "gift ideas",
-  ];
-
-  // Suggested searches based on current query (would be API-driven in a real app)
-  const suggestedSearches = [
-    "crystal ball light",
-    "LED night lamp",
-    "moon lamp",
-    "star projector",
-    "ambient lighting",
-  ];
 
   // Handler for search input change
   const handleSearchChange = (e) => {
@@ -401,7 +240,7 @@ const Searchi = () => {
   const activeFilterCount = getActiveFilterCount();
 
   return (
-    <>
+    <MainLayout hideSearchInNavbar={true}>
       <div className="container mx-auto px-4 py-6">
         {/* Search Header */}
         <div className="mb-6">
@@ -431,7 +270,7 @@ const Searchi = () => {
               type="submit"
               className="bg-orange-500 hover:bg-orange-600 text-white px-6 rounded-r-lg flex items-center justify-center transition-colors duration-200"
             >
-              <Search size={20} />
+              <SearchIcon size={20} />
             </button>
           </form>
 
@@ -479,140 +318,15 @@ const Searchi = () => {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Filters Sidebar - Desktop */}
           <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-4">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">Filters</h2>
-                {activeFilterCount > 0 && (
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-xs text-orange-500 hover:text-orange-700 font-medium"
-                  >
-                    Clear All
-                  </button>
-                )}
-              </div>
-
-              {/* Categories Filter */}
-              <div className="border-b border-gray-200 pb-4 mb-4">
-                <h3 className="font-medium mb-2">Categories</h3>
-                <div className="space-y-2">
-                  {categories.map((category, index) => (
-                    <div key={index} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`category-${index}`}
-                        checked={activeFilters.categories.includes(category)}
-                        onChange={() =>
-                          handleFilterChange("categories", category)
-                        }
-                        className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`category-${index}`}
-                        className="ml-2 text-sm text-gray-700"
-                      >
-                        {category}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Price Range Filter */}
-              <div className="border-b border-gray-200 pb-4 mb-4">
-                <h3 className="font-medium mb-2">Price</h3>
-                <div className="space-y-2">
-                  {priceRanges.map((range, index) => (
-                    <div key={index} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`price-${index}`}
-                        checked={activeFilters.priceRange.includes(range.value)}
-                        onChange={() =>
-                          handleFilterChange("priceRange", range.value)
-                        }
-                        className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`price-${index}`}
-                        className="ml-2 text-sm text-gray-700"
-                      >
-                        {range.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Rating Filter */}
-              <div className="border-b border-gray-200 pb-4 mb-4">
-                <h3 className="font-medium mb-2">Customer Rating</h3>
-                <div className="space-y-2">
-                  {ratings.map((rating, index) => (
-                    <div key={index} className="flex items-center">
-                      <input
-                        type="radio"
-                        id={`rating-${index}`}
-                        name="rating"
-                        checked={activeFilters.rating === rating.value}
-                        onChange={() =>
-                          handleFilterChange("rating", rating.value)
-                        }
-                        className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300"
-                      />
-                      <label
-                        htmlFor={`rating-${index}`}
-                        className="ml-2 text-sm text-gray-700 flex items-center"
-                      >
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={14}
-                              className={`${i < rating.value ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                            />
-                          ))}
-                        </div>
-                        <span className="ml-1">{rating.label}</span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Other Filters */}
-              <div>
-                <div className="flex items-center mb-3">
-                  <input
-                    type="checkbox"
-                    id="discount"
-                    checked={activeFilters.discount}
-                    onChange={() => handleFilterChange("discount", null)}
-                    className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                  />
-                  <label
-                    htmlFor="discount"
-                    className="ml-2 text-sm text-gray-700"
-                  >
-                    Discount Items
-                  </label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="freeShipping"
-                    checked={activeFilters.freeShipping}
-                    onChange={() => handleFilterChange("freeShipping", null)}
-                    className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                  />
-                  <label
-                    htmlFor="freeShipping"
-                    className="ml-2 text-sm text-gray-700"
-                  >
-                    Free Shipping
-                  </label>
-                </div>
-              </div>
+            <div className="sticky top-4">
+              <FilterSidebar 
+                activeFilters={activeFilters}
+                handleFilterChange={handleFilterChange}
+                clearAllFilters={clearAllFilters}
+                categories={categories}
+                priceRanges={priceRanges}
+                ratings={ratings}
+              />
             </div>
           </div>
 
@@ -632,148 +346,20 @@ const Searchi = () => {
                     </button>
                   </div>
 
-                  {activeFilterCount > 0 && (
-                    <button
-                      onClick={clearAllFilters}
-                      className="text-sm text-orange-500 hover:text-orange-700 font-medium mb-4 flex items-center"
-                    >
-                      <X size={16} className="mr-1" />
-                      Clear All Filters
-                    </button>
-                  )}
-
-                  {/* Categories Filter */}
-                  <div className="border-b border-gray-200 pb-4 mb-4">
-                    <h3 className="font-medium mb-2">Categories</h3>
-                    <div className="space-y-2">
-                      {categories.map((category, index) => (
-                        <div key={index} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={`m-category-${index}`}
-                            checked={activeFilters.categories.includes(
-                              category,
-                            )}
-                            onChange={() =>
-                              handleFilterChange("categories", category)
-                            }
-                            className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                          />
-                          <label
-                            htmlFor={`m-category-${index}`}
-                            className="ml-2 text-sm text-gray-700"
-                          >
-                            {category}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Price Range Filter */}
-                  <div className="border-b border-gray-200 pb-4 mb-4">
-                    <h3 className="font-medium mb-2">Price</h3>
-                    <div className="space-y-2">
-                      {priceRanges.map((range, index) => (
-                        <div key={index} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={`m-price-${index}`}
-                            checked={activeFilters.priceRange.includes(
-                              range.value,
-                            )}
-                            onChange={() =>
-                              handleFilterChange("priceRange", range.value)
-                            }
-                            className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                          />
-                          <label
-                            htmlFor={`m-price-${index}`}
-                            className="ml-2 text-sm text-gray-700"
-                          >
-                            {range.label}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Rating Filter */}
-                  <div className="border-b border-gray-200 pb-4 mb-4">
-                    <h3 className="font-medium mb-2">Customer Rating</h3>
-                    <div className="space-y-2">
-                      {ratings.map((rating, index) => (
-                        <div key={index} className="flex items-center">
-                          <input
-                            type="radio"
-                            id={`m-rating-${index}`}
-                            name="m-rating"
-                            checked={activeFilters.rating === rating.value}
-                            onChange={() =>
-                              handleFilterChange("rating", rating.value)
-                            }
-                            className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300"
-                          />
-                          <label
-                            htmlFor={`m-rating-${index}`}
-                            className="ml-2 text-sm text-gray-700 flex items-center"
-                          >
-                            <div className="flex items-center">
-                              {[...Array(5)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  size={14}
-                                  className={`${i < rating.value ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-                                />
-                              ))}
-                            </div>
-                            <span className="ml-1">{rating.label}</span>
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Other Filters */}
-                  <div className="mb-6">
-                    <div className="flex items-center mb-3">
-                      <input
-                        type="checkbox"
-                        id="m-discount"
-                        checked={activeFilters.discount}
-                        onChange={() => handleFilterChange("discount", null)}
-                        className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="m-discount"
-                        className="ml-2 text-sm text-gray-700"
-                      >
-                        Discount Items
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="m-freeShipping"
-                        checked={activeFilters.freeShipping}
-                        onChange={() =>
-                          handleFilterChange("freeShipping", null)
-                        }
-                        className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="m-freeShipping"
-                        className="ml-2 text-sm text-gray-700"
-                      >
-                        Free Shipping
-                      </label>
-                    </div>
-                  </div>
+                  <FilterSidebar 
+                    activeFilters={activeFilters}
+                    handleFilterChange={handleFilterChange}
+                    clearAllFilters={clearAllFilters}
+                    categories={categories}
+                    priceRanges={priceRanges}
+                    ratings={ratings}
+                    isMobile={true}
+                  />
 
                   {/* Apply button */}
                   <button
                     onClick={() => setMobileFiltersOpen(false)}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg"
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg mt-4"
                   >
                     Apply Filters
                   </button>
@@ -939,7 +525,7 @@ const Searchi = () => {
             {!isLoading && displayResults.length === 0 && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
                 <div className="mb-4 text-gray-400">
-                  <Search size={48} className="mx-auto" />
+                  <SearchIcon size={48} className="mx-auto" />
                 </div>
                 <h2 className="text-xl font-semibold mb-2">
                   No products found
@@ -984,182 +570,9 @@ const Searchi = () => {
                     : "space-y-4"
                 }
               >
-                {displayResults.map((product) =>
-                  viewMode === "grid" ? (
-                    // Grid view
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 group"
-                    >
-                      <div className="relative">
-                        <Link href={`/product/${product.id}`} className="block">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={300}
-                            height={300}
-                            className="w-full h-64 object-cover"
-                          />
-                        </Link>
-                        {product.badge && (
-                          <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                            {product.badge}
-                          </span>
-                        )}
-                        {product.discount && (
-                          <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
-                            {product.discount}
-                          </span>
-                        )}
-                        {/* Quick action buttons */}
-                        <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-2">
-                          <button className="bg-white text-gray-800 p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors duration-200">
-                            <Heart size={18} />
-                          </button>
-                          <button className="bg-white text-gray-800 p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors duration-200">
-                            <ShoppingCart size={18} />
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="p-4">
-                        <div className="flex justify-between items-start mb-1">
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                size={14}
-                                className={`${
-                                  i < Math.floor(product.rating)
-                                    ? "text-yellow-400 fill-yellow-400"
-                                    : i < product.rating
-                                      ? "text-yellow-400 fill-yellow-400 opacity-50"
-                                      : "text-gray-300"
-                                }`}
-                              />
-                            ))}
-                            <span className="text-xs text-gray-500 ml-1">
-                              ({product.reviewCount})
-                            </span>
-                          </div>
-                          <span className="text-xs text-gray-500">
-                            {product.sold}
-                          </span>
-                        </div>
-
-                        <Link href={`/product/${product.id}`} className="block">
-                          <h3 className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-orange-500 transition-colors duration-200 mb-1">
-                            {product.name}
-                          </h3>
-                        </Link>
-
-                        <p className="text-xs text-gray-500 line-clamp-1 mb-2">
-                          {product.description}
-                        </p>
-
-                        <div className="flex items-baseline">
-                          <span className="text-lg font-bold text-orange-500">
-                            {product.price}
-                          </span>
-                          {product.originalPrice && (
-                            <span className="ml-2 text-sm text-gray-500 line-through">
-                              {product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    // List view
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 flex group"
-                    >
-                      <div className="relative w-40 sm:w-48 flex-shrink-0">
-                        <Link
-                          href={`/product/${product.id}`}
-                          className="block h-full"
-                        >
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={200}
-                            height={200}
-                            className="w-full h-full object-cover"
-                          />
-                        </Link>
-                        {product.badge && (
-                          <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                            {product.badge}
-                          </span>
-                        )}
-                        {product.discount && (
-                          <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
-                            {product.discount}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="p-4 flex-grow">
-                        <div className="flex justify-between items-start mb-1">
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                size={14}
-                                className={`${
-                                  i < Math.floor(product.rating)
-                                    ? "text-yellow-400 fill-yellow-400"
-                                    : i < product.rating
-                                      ? "text-yellow-400 fill-yellow-400 opacity-50"
-                                      : "text-gray-300"
-                                }`}
-                              />
-                            ))}
-                            <span className="text-xs text-gray-500 ml-1">
-                              ({product.reviewCount})
-                            </span>
-                          </div>
-                          <span className="text-xs text-gray-500">
-                            {product.sold}
-                          </span>
-                        </div>
-
-                        <Link href={`/product/${product.id}`} className="block">
-                          <h3 className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-orange-500 transition-colors duration-200 mb-1">
-                            {product.name}
-                          </h3>
-                        </Link>
-
-                        <p className="text-xs text-gray-500 line-clamp-2 mb-3">
-                          {product.description}
-                        </p>
-
-                        <div className="flex items-baseline mb-2">
-                          <span className="text-lg font-bold text-orange-500">
-                            {product.price}
-                          </span>
-                          {product.originalPrice && (
-                            <span className="ml-2 text-sm text-gray-500 line-through">
-                              {product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="flex space-x-2">
-                          <button className="bg-orange-500 hover:bg-orange-600 text-white text-xs px-3 py-1.5 rounded flex items-center transition-colors duration-200">
-                            <ShoppingCart size={14} className="mr-1" />
-                            Add to Cart
-                          </button>
-                          <button className="border border-gray-300 hover:border-gray-400 text-gray-700 text-xs px-3 py-1.5 rounded flex items-center transition-colors duration-200">
-                            <Heart size={14} className="mr-1" />
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ),
-                )}
+                {displayResults.map((product) => (
+                  <ProductCard key={product.id} product={product} viewMode={viewMode} />
+                ))}
               </div>
             )}
 
@@ -1209,8 +622,8 @@ const Searchi = () => {
           </div>
         </div>
       </div>
-    </>
+    </MainLayout>
   );
 };
 
-export default Searchi;
+export default SearchPage;
