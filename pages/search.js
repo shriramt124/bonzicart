@@ -378,7 +378,7 @@ const SearchPage = () => {
   const activeFilterCount = getActiveFilterCount();
 
   return (
-    <MainLayout>
+    <>
       <div className="py-6 w-full">
         {/* Search Results Info */}
         <div className="mb-4">
@@ -690,7 +690,7 @@ const SearchPage = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

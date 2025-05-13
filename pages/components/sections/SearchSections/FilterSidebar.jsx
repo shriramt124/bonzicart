@@ -18,7 +18,7 @@ const FilterSidebar = ({
     <div className={`bg-white rounded-lg ${!isMobile ? 'shadow-sm border border-gray-200' : ''} p-4`}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Filters</h2>
-        {(activeFilters.categories.length > 0 ||
+        {(activeFilters?.categories?.length > 0 ||
           activeFilters.priceRange.length > 0 ||
           activeFilters.rating ||
           activeFilters.discount ||
@@ -36,7 +36,7 @@ const FilterSidebar = ({
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Categories</h3>
         <div className="space-y-2">
-          {categories.map((category, index) => (
+          {categories?.map((category, index) => (
             <div key={index} className="flex items-center">
               <input
                 type="checkbox"
@@ -57,7 +57,7 @@ const FilterSidebar = ({
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Price</h3>
         <div className="space-y-2">
-          {priceRanges.map((range, index) => (
+          {priceRanges?.map((range, index) => (
             <div key={index} className="flex items-center">
               <input
                 type="checkbox"
@@ -78,7 +78,7 @@ const FilterSidebar = ({
       <div className="border-b border-gray-200 pb-4 mb-4">
         <h3 className="font-medium mb-2">Customer Rating</h3>
         <div className="space-y-2">
-          {ratings.map((rating, index) => (
+          {ratings?.map((rating, index) => (
             <div key={index} className="flex items-center">
               <input
                 type="radio"

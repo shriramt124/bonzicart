@@ -25,6 +25,7 @@ import {
   popularProducts,
   heroProducts,
   mostSearchedProducts,
+  
 } from "@/constants/HomePageContants";
 
 const geistSans = Geist({
@@ -106,7 +107,7 @@ export default function Home() {
                   All Categories
                 </div>
                 <ul className="divide-y divide-gray-100">
-                  {mainCategoryGroups.map((category) => (
+                  {mainCategoryGroups?.map((category) => (
                     <li key={category.id} className="group">
                       <Link
                         href="#"
@@ -114,7 +115,7 @@ export default function Home() {
                       >
                         <span className="mr-3">{category.icon}</span>
                         <span className="text-sm font-medium text-gray-700 group-hover:text-orange-500">
-                          {category.name}
+                          {category?.name}
                         </span>
                         <ChevronRight className="w-4 h-4 ml-auto text-gray-400 group-hover:text-orange-500" />
                       </Link>
@@ -129,7 +130,7 @@ export default function Home() {
               {/* Hero Carousel */}
               <div className="bg-white rounded-lg shadow-sm mb-6 overflow-hidden">
                 <div className="hero-carousel relative">
-                  {heroSlides.map((slide, index) => (
+                  {heroSlides?.map((slide, index) => (
                     <div
                       key={slide.id}
                       className={`hero-slide ${slide.color} rounded-lg overflow-hidden absolute top-0 left-0 w-full h-full transition-opacity duration-500`}
@@ -287,7 +288,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {flashDeals.map((product) => (
+              {flashDeals?.map((product) => (
                 <div
                   key={product.id}
                   className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group relative"
@@ -309,19 +310,19 @@ export default function Home() {
                         </span>
                       </div>
                       <h3 className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-orange-500 transition-colors duration-200">
-                        {product.name}
+                        {product?.name}
                       </h3>
                       <div className="mt-2 flex items-center justify-between">
                         <div>
                           <span className="text-orange-500 font-bold">
-                            {product.price}
+                            {product?.price}
                           </span>
                           <span className="text-xs text-gray-400 line-through ml-1">
                             {product.originalPrice}
                           </span>
                         </div>
                         <span className="text-xs text-gray-500">
-                          {product.sold}
+                          {product?.sold}
                         </span>
                       </div>
                     </div>
@@ -356,7 +357,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {collections.map((product) => (
+              {collections?.map((product) => (
                 <div
                   key={product.id}
                   className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group relative"
@@ -503,7 +504,7 @@ export default function Home() {
                   <div className="absolute left-0 right-0 bottom-0 translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 pointer-events-none">
                     <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded mx-2 my-1 max-w-[200px]">
                       High-quality product from trusted sellers - perfect for{" "}
-                      {product.category}.
+                      {product?.category}.
                     </div>
                   </div>
                 </div>
