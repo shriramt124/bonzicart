@@ -212,7 +212,7 @@ export default function ProductDetail({ product }) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-4 max-w-7xl">
+      <div className="container bg-green-400 mx-auto py-4">
         {/* Breadcrumb with microinteraction */}
         <div className="flex items-center text-sm text-gray-500 mb-4 overflow-x-auto whitespace-nowrap">
           <Link href="/" className="hover:text-orange-500 transition-colors">
@@ -554,9 +554,9 @@ export default function ProductDetail({ product }) {
                     className={`mt-4 text-gray-600 relative ${!showFullDescription && "max-h-36 overflow-hidden"}`}
                   >
                     <p className="mb-3">
-                      The Men&apos;s Leather Shoulder Bag – Retro Vertical Backpack
-                      is a stylish and functional accessory designed for
-                      business and casual use. Crafted from high-quality
+                      The Men&apos;s Leather Shoulder Bag – Retro Vertical
+                      Backpack is a stylish and functional accessory designed
+                      for business and casual use. Crafted from high-quality
                       leather, this bag offers a timeless look combined with
                       durability. Whether commuting to work, traveling, or
                       running errands, it seamlessly fits into any lifestyle.
@@ -1025,8 +1025,9 @@ export default function ProductDetail({ product }) {
                       </h4>
                       <p className="text-sm text-gray-600">
                         This egg separator works exactly as described. I use it
-                        almost daily and it&apos;s made my breakfast preparation so
-                        much easier. The bottle opener is a nice bonus feature.
+                        almost daily and it&apos;s made my breakfast preparation
+                        so much easier. The bottle opener is a nice bonus
+                        feature.
                       </p>
                     </div>
 
@@ -1115,10 +1116,10 @@ export default function ProductDetail({ product }) {
                         Excellent purchase!
                       </h4>
                       <p className="text-sm text-gray-600">
-                        I&apos;m extremely pleased with this purchase. The quality
-                        far exceeded my expectations, and it&apos;s made my cooking
-                        routine much more efficient. I would definitely
-                        recommend this to anyone who cooks regularly.
+                        I&apos;m extremely pleased with this purchase. The
+                        quality far exceeded my expectations, and it&apos;s made
+                        my cooking routine much more efficient. I would
+                        definitely recommend this to anyone who cooks regularly.
                       </p>
                     </div>
                   </div>
