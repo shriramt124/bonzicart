@@ -1115,8 +1115,8 @@ export default function ProductDetail({ product }) {
                         Excellent purchase!
                       </h4>
                       <p className="text-sm text-gray-600">
-                        I'm extremely pleased with this purchase. The quality
-                        far exceeded my expectations, and it's made my cooking
+                        I&apos;m extremely pleased with this purchase. The quality
+                        far exceeded my expectations, and it&apos;s made my cooking
                         routine much more efficient. I would definitely
                         recommend this to anyone who cooks regularly.
                       </p>
