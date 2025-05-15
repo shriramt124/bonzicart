@@ -28,9 +28,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         <Link href={`/product/${product?.id}`} className="block">
           <div className="rounded-md overflow-hidden aspect-square bg-gray-50 flex items-center justify-center">
             <Image
-              src={
-                "https://admin.bonzicart.com/image/media-storage/1/2328/2024092612034488537.png?size=l"
-              }
+              src={product?.image || "/api/placeholder/300/300"}
               alt={product?.name}
               width={300}
               height={300}
