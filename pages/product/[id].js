@@ -24,7 +24,7 @@ import {
   Tool,
   FileText,
 } from "lucide-react";
-import MainLayout from "@/pages/components/layouts/MainLayout";
+import MainLayout from "../components/layouts/MainLayout";
 import ProductCard from "@/pages/components/sections/SearchSections/ProductCard";
 import { featuredProducts, productReviews } from "@/constants/ProductConstants";
 import { getProductById } from "@/utils/productUtils";
