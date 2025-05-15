@@ -554,7 +554,7 @@ export default function ProductDetail({ product }) {
                     className={`mt-4 text-gray-600 relative ${!showFullDescription && "max-h-36 overflow-hidden"}`}
                   >
                     <p className="mb-3">
-                      The Men's Leather Shoulder Bag – Retro Vertical Backpack
+                      The Men&apos;s Leather Shoulder Bag – Retro Vertical Backpack
                       is a stylish and functional accessory designed for
                       business and casual use. Crafted from high-quality
                       leather, this bag offers a timeless look combined with
@@ -1025,7 +1025,7 @@ export default function ProductDetail({ product }) {
                       </h4>
                       <p className="text-sm text-gray-600">
                         This egg separator works exactly as described. I use it
-                        almost daily and it's made my breakfast preparation so
+                        almost daily and it&apos;s made my breakfast preparation so
                         much easier. The bottle opener is a nice bonus feature.
                       </p>
                     </div>
