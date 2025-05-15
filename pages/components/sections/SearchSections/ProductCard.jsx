@@ -28,7 +28,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         <Link href={`/product/${product?.id}`} className="block">
           <div className="rounded-md overflow-hidden aspect-square bg-gray-50 flex items-center justify-center">
             <Image
-              src={product?.image || "/api/placeholder/300/300"}
+              src={product?.image || "https://via.placeholder.com/300"}
               alt={product?.name}
               width={300}
               height={300}
