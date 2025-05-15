@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,14 +26,12 @@ import {
   FileText,
 } from "lucide-react";
 import MainLayout from "../components/layouts/MainLayout";
-import ProductCard from "@/pages/components/sections/SearchSections/ProductCard";
+import ProductCard from "../components/sections/SearchSections/ProductCard";
 import { featuredProducts, productReviews } from "@/constants/ProductConstants";
 import { getProductById } from "@/utils/productUtils";
 
 export default function ProductDetail({ product }) {
-  const [selectedColor, setSelectedColor] = useState(
-    product?.colors?.[0] || {},
-  );
+  const [selectedColor, setSelectedColor] = useState(product?.colors?.[0] || {});
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("details");
   const [selectedImage, setSelectedImage] = useState(0);
@@ -50,9 +49,7 @@ export default function ProductDetail({ product }) {
   };
 
   // Related products
-  const relatedProducts = featuredProducts.filter(
-    (item) => item.id !== product.id,
-  );
+  const relatedProducts = featuredProducts.filter(item => item.id !== product.id);
 
   return (
     <MainLayout>
@@ -216,12 +213,11 @@ export default function ProductDetail({ product }) {
                     >
                       {selectedColor.id === color.id && (
                         <span className="absolute inset-0 flex items-center justify-center">
-                          <Check
-                            size={16}
+                          <Check 
+                            size={16} 
                             className="text-white drop-shadow-md"
                             style={{
-                              filter:
-                                "drop-shadow(0px 0px 1px rgba(0,0,0,0.5))",
+                              filter: 'drop-shadow(0px 0px 1px rgba(0,0,0,0.5))'
                             }}
                           />
                         </span>
@@ -231,8 +227,7 @@ export default function ProductDetail({ product }) {
                   ))}
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
-                  Selected:{" "}
-                  <span className="font-medium">{selectedColor.name}</span>
+                  Selected: <span className="font-medium">{selectedColor.name}</span>
                 </p>
               </div>
 
@@ -261,10 +256,7 @@ export default function ProductDetail({ product }) {
                     <Plus size={18} />
                   </button>
                   <span className="ml-4 text-sm text-gray-500">
-                    <span className="text-green-500 font-medium">
-                      {product.stock}
-                    </span>{" "}
-                    items available
+                    <span className="text-green-500 font-medium">{product.stock}</span> items available
                   </span>
                 </div>
               </div>
@@ -274,30 +266,22 @@ export default function ProductDetail({ product }) {
                 <div className="bg-gray-50 p-3 rounded-lg flex flex-col items-center justify-center text-center">
                   <Truck size={20} className="text-orange-500 mb-1" />
                   <span className="text-xs font-medium">Free Shipping</span>
-                  <span className="text-xs text-gray-500">
-                    {product.delivery}
-                  </span>
+                  <span className="text-xs text-gray-500">{product.delivery}</span>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg flex flex-col items-center justify-center text-center">
                   <RefreshCcw size={20} className="text-orange-500 mb-1" />
                   <span className="text-xs font-medium">Easy Returns</span>
-                  <span className="text-xs text-gray-500">
-                    {product.returnPolicy}
-                  </span>
+                  <span className="text-xs text-gray-500">{product.returnPolicy}</span>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg flex flex-col items-center justify-center text-center">
                   <Shield size={20} className="text-orange-500 mb-1" />
                   <span className="text-xs font-medium">Warranty</span>
-                  <span className="text-xs text-gray-500">
-                    {product.warranty}
-                  </span>
+                  <span className="text-xs text-gray-500">{product.warranty}</span>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg flex flex-col items-center justify-center text-center">
                   <Award size={20} className="text-orange-500 mb-1" />
                   <span className="text-xs font-medium">100% Authentic</span>
-                  <span className="text-xs text-gray-500">
-                    Quality products
-                  </span>
+                  <span className="text-xs text-gray-500">Quality products</span>
                 </div>
               </div>
 
@@ -388,9 +372,9 @@ export default function ProductDetail({ product }) {
                     </p>
                     <p>
                       The built-in bottle opener feature adds extra utility to
-                      this kitchen gadget, saving you space and providing
-                      multiple functions in one compact tool. Perfect for home
-                      cooks who appreciate efficient, multi-purpose tools.
+                      this kitchen gadget, saving you space and providing multiple
+                      functions in one compact tool. Perfect for home cooks who
+                      appreciate efficient, multi-purpose tools.
                     </p>
                   </div>
                 </div>
@@ -413,17 +397,11 @@ export default function ProductDetail({ product }) {
                     Care Information
                   </h2>
                   <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-gray-700">
-                    <p className="mb-2">
-                      To keep your product in best condition:
-                    </p>
+                    <p className="mb-2">To keep your product in best condition:</p>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>
-                        Clean with mild soap and warm water after each use
-                      </li>
+                      <li>Clean with mild soap and warm water after each use</li>
                       <li>Dry thoroughly before storing</li>
-                      <li>
-                        Store in a cool, dry place away from direct sunlight
-                      </li>
+                      <li>Store in a cool, dry place away from direct sunlight</li>
                       <li>Avoid exposure to extreme temperatures</li>
                     </ul>
                   </div>
@@ -437,20 +415,15 @@ export default function ProductDetail({ product }) {
                   <Zap size={18} className="text-orange-500 mr-2" />
                   Key Features and Benefits
                 </h2>
-
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {product.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start bg-gray-50 p-4 rounded-lg"
-                    >
+                    <div key={index} className="flex items-start bg-gray-50 p-4 rounded-lg">
                       <div className="bg-green-500 rounded-full p-1 flex-shrink-0 mr-3">
                         <Check size={14} className="text-white" />
                       </div>
                       <div>
-                        <span className="text-sm text-gray-800 font-medium">
-                          {feature}
-                        </span>
+                        <span className="text-sm text-gray-800 font-medium">{feature}</span>
                       </div>
                     </div>
                   ))}
@@ -461,7 +434,7 @@ export default function ProductDetail({ product }) {
                     <ThumbsUp size={18} className="text-orange-500 mr-2" />
                     Pros & Cons
                   </h3>
-
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <h4 className="text-green-600 font-medium flex items-center">
@@ -470,44 +443,24 @@ export default function ProductDetail({ product }) {
                       </h4>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <Check
-                            size={16}
-                            className="text-green-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Premium quality materials
-                          </span>
+                          <Check size={16} className="text-green-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">Premium quality materials</span>
                         </li>
                         <li className="flex items-start">
-                          <Check
-                            size={16}
-                            className="text-green-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Multifunctional design
-                          </span>
+                          <Check size={16} className="text-green-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">Multifunctional design</span>
                         </li>
                         <li className="flex items-start">
-                          <Check
-                            size={16}
-                            className="text-green-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Easy to clean and maintain
-                          </span>
+                          <Check size={16} className="text-green-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">Easy to clean and maintain</span>
                         </li>
                         <li className="flex items-start">
-                          <Check
-                            size={16}
-                            className="text-green-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Compact storage solution
-                          </span>
+                          <Check size={16} className="text-green-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">Compact storage solution</span>
                         </li>
                       </ul>
                     </div>
-
+                    
                     <div className="space-y-3">
                       <h4 className="text-red-600 font-medium flex items-center">
                         <ThumbsDown size={16} className="mr-2" />
@@ -515,22 +468,12 @@ export default function ProductDetail({ product }) {
                       </h4>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <AlertTriangle
-                            size={16}
-                            className="text-red-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            May not work with extra large eggs
-                          </span>
+                          <AlertTriangle size={16} className="text-red-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">May not work with extra large eggs</span>
                         </li>
                         <li className="flex items-start">
-                          <AlertTriangle
-                            size={16}
-                            className="text-red-500 mr-2 mt-0.5"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Requires hand washing for best results
-                          </span>
+                          <AlertTriangle size={16} className="text-red-500 mr-2 mt-0.5" />
+                          <span className="text-sm text-gray-700">Requires hand washing for best results</span>
                         </li>
                       </ul>
                     </div>
@@ -545,36 +488,26 @@ export default function ProductDetail({ product }) {
                   <Tool size={18} className="text-orange-500 mr-2" />
                   Technical Specifications
                 </h2>
-
+                
                 <div className="overflow-hidden border border-gray-200 rounded-lg">
                   <table className="min-w-full divide-y divide-gray-200">
                     <tbody className="divide-y divide-gray-200">
-                      {Object.entries(product.specifications).map(
-                        ([key, value]) => (
-                          <tr key={key} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/3 bg-gray-50">
-                              {key
-                                .replace(/([A-Z])/g, " $1")
-                                .trim()
-                                .charAt(0)
-                                .toUpperCase() +
-                                key
-                                  .replace(/([A-Z])/g, " $1")
-                                  .trim()
-                                  .slice(1)}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                              {value}
-                            </td>
-                          </tr>
-                        ),
-                      )}
+                      {Object.entries(product.specifications).map(([key, value]) => (
+                        <tr key={key} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/3 bg-gray-50">
+                            {key.replace(/([A-Z])/g, " $1").trim().charAt(0).toUpperCase() + key.replace(/([A-Z])/g, " $1").trim().slice(1)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                            {value}
+                          </td>
+                        </tr>
+                      ))}
                       <tr className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/3 bg-gray-50">
                           Color Options
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                          {product.colors.map((c) => c.name).join(", ")}
+                          {product.colors.map(c => c.name).join(", ")}
                         </td>
                       </tr>
                     </tbody>
@@ -585,103 +518,45 @@ export default function ProductDetail({ product }) {
                   <h3 className="text-lg font-medium text-gray-800 mb-4">
                     Product Compatibility
                   </h3>
-
+                  
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       <div className="text-orange-500 mb-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-8 w-8 mx-auto"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
                       </div>
-                      <h4 className="text-sm font-medium text-gray-800">
-                        Dishwasher Safe
-                      </h4>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Top rack only
-                      </p>
+                      <h4 className="text-sm font-medium text-gray-800">Dishwasher Safe</h4>
+                      <p className="text-xs text-gray-500 mt-1">Top rack only</p>
                     </div>
-
+                    
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       <div className="text-orange-500 mb-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-8 w-8 mx-auto"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
                       </div>
-                      <h4 className="text-sm font-medium text-gray-800">
-                        Food Grade
-                      </h4>
-                      <p className="text-xs text-gray-500 mt-1">
-                        BPA-free silicone
-                      </p>
+                      <h4 className="text-sm font-medium text-gray-800">Food Grade</h4>
+                      <p className="text-xs text-gray-500 mt-1">BPA-free silicone</p>
                     </div>
-
+                    
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       <div className="text-orange-500 mb-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-8 w-8 mx-auto"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                         </svg>
                       </div>
-                      <h4 className="text-sm font-medium text-gray-800">
-                        Temperature
-                      </h4>
-                      <p className="text-xs text-gray-500 mt-1">
-                        -20°C to 230°C
-                      </p>
+                      <h4 className="text-sm font-medium text-gray-800">Temperature</h4>
+                      <p className="text-xs text-gray-500 mt-1">-20°C to 230°C</p>
                     </div>
-
+                    
                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                       <div className="text-orange-500 mb-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-8 w-8 mx-auto"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
-                      <h4 className="text-sm font-medium text-gray-800">
-                        Warranty
-                      </h4>
+                      <h4 className="text-sm font-medium text-gray-800">Warranty</h4>
                       <p className="text-xs text-gray-500 mt-1">12 months</p>
                     </div>
                   </div>
@@ -727,34 +602,17 @@ export default function ProductDetail({ product }) {
 
                 {/* Rating Breakdown */}
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-800 mb-3">
-                    Rating Breakdown
-                  </h3>
+                  <h3 className="text-sm font-medium text-gray-800 mb-3">Rating Breakdown</h3>
                   <div className="space-y-2">
                     {[5, 4, 3, 2, 1].map((star) => {
                       const percentage = Math.round(
-                        ((star === 5
-                          ? 78
-                          : star === 4
-                            ? 15
-                            : star === 3
-                              ? 5
-                              : star === 2
-                                ? 1
-                                : 1) /
-                          100) *
-                          100,
+                        ((star === 5 ? 78 : star === 4 ? 15 : star === 3 ? 5 : star === 2 ? 1 : 1) / 100) * 100
                       );
                       return (
                         <div key={star} className="flex items-center">
                           <div className="flex items-center w-24">
-                            <span className="text-sm text-gray-600 mr-2">
-                              {star}
-                            </span>
-                            <Star
-                              size={12}
-                              className="text-yellow-400 fill-yellow-400"
-                            />
+                            <span className="text-sm text-gray-600 mr-2">{star}</span>
+                            <Star size={12} className="text-yellow-400 fill-yellow-400" />
                           </div>
                           <div className="flex-grow h-2 mx-3 rounded-full bg-gray-200 overflow-hidden">
                             <div
@@ -815,7 +673,9 @@ export default function ProductDetail({ product }) {
                           Helpful
                         </button>
                         <span className="mx-2">•</span>
-                        <button className="hover:text-gray-700">Report</button>
+                        <button className="hover:text-gray-700">
+                          Report
+                        </button>
                       </div>
                     </div>
                   ))}
