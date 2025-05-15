@@ -1,46 +1,53 @@
-import { featuredProducts } from "@/constants/ProductConstants";
 
-/**
- * Get a product by its ID
- * @param {string} id - The product ID
- * @returns {Object|null} - The product object or null if not found
- */
-export function getProductById(id) {
-  if (!id) return null;
-
-  // Find the product with the matching ID
-  const product = featuredProducts.find(product => product.id === id);
-
-  return product || null;
-}
-
-/**
- * Format a price string without currency symbol
- * @param {string} priceWithCurrency - Price string with currency symbol (e.g. "$12.99")
- * @returns {string} - Price without currency (e.g. "12.99")
- */
-export function formatPriceValue(priceWithCurrency) {
-  if (!priceWithCurrency) return "";
-
-  // Remove currency symbol and any other non-numeric characters except decimal point
-  return priceWithCurrency.replace(/[^0-9.]/g, "");
-}
-
-/**
- * Calculate discount percentage between original and current price
- * @param {string} originalPrice - Original price with currency symbol
- * @param {string} currentPrice - Current price with currency symbol
- * @returns {number} - Discount percentage rounded to nearest integer
- */
-export function calculateDiscountPercentage(originalPrice, currentPrice) {
-  const original = parseFloat(formatPriceValue(originalPrice));
-  const current = parseFloat(formatPriceValue(currentPrice));
-
-  if (!original || !current || original <= current) return 0;
-
-  const discountPercentage = ((original - current) / original) * 100;
-  return Math.round(discountPercentage);
-}
+// Get a single product by id
+export const getProductById = (id) => {
+  // In a real application, this would fetch from an API or database
+  // For now we return mock data
+  return {
+    id,
+    name: "Efficient Eggshell Separator - Quick Peel & Extract Egg Yolks",
+    description: "Perfect for Kitchen Use. Ideal for Uncooked & Cooked Eggs.",
+    price: "$12.99",
+    originalPrice: "$29.99",
+    discount: "57% OFF",
+    badge: "Lightning Deal",
+    colors: [
+      { id: 1, name: "Rose Red", value: "#e91e63" },
+      { id: 2, name: "Yellow", value: "#ffc107" },
+      { id: 3, name: "Orange", value: "#ff5722" },
+      { id: 4, name: "Multi", value: "linear-gradient(to right, #e91e63, #ffc107, #ff5722)" },
+    ],
+    rating: 4.5,
+    reviewCount: 128,
+    stock: 10,
+    images: [
+      "/api/placeholder/500/500",
+      "/api/placeholder/500/500",
+      "/api/placeholder/500/500",
+      "/api/placeholder/500/500",
+      "/api/placeholder/500/500",
+    ],
+    seller: "Kitchen Gadgets Store",
+    sellerRating: 4.8,
+    shipping: "Free",
+    delivery: "3-5 business days",
+    returnPolicy: "7 days easy returns",
+    warranty: "1 year manufacturer warranty",
+    features: [
+      "Food-grade safe silicone material",
+      "Dishwasher safe for easy cleaning",
+      "Compact design for easy storage",
+      "Multifunctional: separates eggs and opens bottles",
+      "Suitable for both raw and cooked eggs"
+    ],
+    specifications: {
+      material: "Food-grade silicone",
+      dimensions: "3.5 × 2.8 × 1.2 inches",
+      weight: "0.15 lbs",
+      packageContents: "1 × Egg Separator, 1 × Instruction Manual"
+    }
+  };
+};
 
 // Get related products based on a product ID
 export const getRelatedProducts = (productId, limit = 5) => {
