@@ -1,47 +1,119 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useAuth } from './AuthContext';
+import { useRouter } from 'next/router';
+import { showAlert } from './AuthAlert';
+import { showSuccessAlert } from './AuthSuccessAlert';
+import { SignUpSchema } from './Schemas/signupSchema';
 
 function SignUp() {
+    const { register } = useAuth();
+    const [errors, setErrors] = useState({});
+    const [formData, setFormData] = useState({
+        'first_name': '',
+        'last_name': '',
+        phone_number: '',
+        email: '',
+        'password': '',
+    });
+    const router = useRouter(); // Add this line to get the router object
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const parsedData = SignUpSchema.parse(formData);
+            setErrors({});
+            const formDataToSend = new FormData();
+            for (const key in parsedData) {
+                formDataToSend.append(key, parsedData[key]);
+            }
+            const response = await register(formDataToSend);
+            console.log('Registration successful', response);
+            showSuccessAlert('Registration successful', router, '/auth/login'); // Pass router object and redirect to login
+        } catch (err) {
+            if (err.response && err.response.data && err.response.data.message) {
+                // Call showAlert for any backend error message
+                showAlert({ message: err.response.data.message, title: "Registration Error" });
+            } else if (err.errors) {
+                const mappedErrors = {};
+                err.errors.forEach((error) => {
+                    mappedErrors[error.path[0]] = error.message;
+                });
+                setErrors(mappedErrors);
+            } else {
+                // Use showAlert for other registration failures
+                showAlert({ message: 'Registration failed. Please try again.' });
+            }
+        }
+    };
+
     return (
         <div className="bg-white p-6 sm:p-8 rounded-b-xl sm:rounded-b-2xl shadow-xl w-full max-w-md">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+                {/* Removed general error div */}
                 <div className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label htmlFor="first-name" className="sr-only">First name</label>
+                            <label htmlFor="first_name" className="sr-only">First name</label>
                             <input
                                 type="text"
-                                name="first-name"
-                                id="first-name"
+                                name="first_name"
+                                id="first_name"
                                 autoComplete="given-name"
                                 required
-                                className="appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out"
+                                className={`appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out ${errors['first_name'] ? 'border-red-500' : ''
+                                    }`}
                                 placeholder="First name"
+                                value={formData['first_name']}
+                                onChange={handleChange}
                             />
+                            {errors['first_name'] && (
+                                <p className="text-red-500 text-xs mt-1">{errors['first_name']}</p>
+                            )}
                         </div>
                         <div>
-                            <label htmlFor="last-name" className="sr-only">Last name</label>
+                            <label htmlFor="last_name" className="sr-only">Last name</label>
                             <input
                                 type="text"
-                                name="last-name"
-                                id="last-name"
+                                name="last_name"
+                                id="last_name"
                                 autoComplete="family-name"
                                 required
-                                className="appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out"
+                                className={`appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out ${errors['last_name'] ? 'border-red-500' : ''
+                                    }`}
                                 placeholder="Last name"
+                                value={formData['last_name']}
+                                onChange={handleChange}
                             />
+                            {errors['last_name'] && (
+                                <p className="text-red-500 text-xs mt-1">{errors['last_name']}</p>
+                            )}
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="phone" className="sr-only">Phone No.</label>
+                        <label htmlFor="phone_number" className="sr-only">phone_number_number No.</label>
                         <input
                             type="text"
-                            name="phone"
-                            id="phone"
+                            name="phone_number"
+                            id="phone_number"
                             autoComplete="tel"
                             required
-                            className="appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out"
-                            placeholder="Phone number"
+                            className={`appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out ${errors['phone_number'] ? 'border-red-500' : ''
+                                }`}
+                            placeholder="phone_number number"
+                            value={formData['phone_number']}
+                            onChange={handleChange}
                         />
+                        {errors['phone_number'] && (
+                            <p className="text-red-500 text-xs mt-1">{errors['phone_number']}</p>
+                        )}
                     </div>
                     <div>
                         <label htmlFor="email" className="sr-only">Email address</label>
@@ -51,21 +123,33 @@ function SignUp() {
                             id="email"
                             autoComplete="email"
                             required
-                            className="appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out"
+                            className={`appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out ${errors['email'] ? 'border-red-500' : ''
+                                }`}
                             placeholder="Email address"
+                            value={formData['email']}
+                            onChange={handleChange}
                         />
+                        {errors['email'] && (
+                            <p className="text-red-500 text-xs mt-1">{errors['email']}</p>
+                        )}
                     </div>
                     <div>
-                        <label htmlFor="new-password" className="sr-only">Password</label>
+                        <label htmlFor="password" className="sr-only">Password</label>
                         <input
                             type="password"
-                            name="new-password"
-                            id="new-password"
-                            autoComplete="new-password"
+                            name="password"
+                            id="password"
+                            autoComplete="password"
                             required
-                            className="appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out"
+                            className={`appearance-none block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-gray-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200 ease-in-out ${errors['password'] ? 'border-red-500' : ''
+                                }`}
                             placeholder="New Password"
+                            value={formData['password']}
+                            onChange={handleChange}
                         />
+                        {errors['password'] && (
+                            <p className="text-red-500 text-xs mt-1">{errors['password']}</p>
+                        )}
                     </div>
                 </div>
 
@@ -101,7 +185,7 @@ function SignUp() {
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
-export default SignUp
+export default SignUp;
