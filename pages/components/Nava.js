@@ -300,8 +300,9 @@ function Nava() {
                                 <span>Deliver to New York</span>
                                 <ChevronDown
                                     size={12}
-                                    className={`ml-1 transition-transform duration-200 ${showLocationPicker ? "rotate-180" : ""
-                                        }`}
+                                    className={`ml-1 transition-transform duration-200 ${
+                                        showLocationPicker ? "rotate-180" : ""
+                                    }`}
                                 />
                             </button>
 
@@ -392,10 +393,11 @@ function Nava() {
                     {/* Enhanced Search bar with better UI/UX */}
                     <div
                         ref={searchRef}
-                        className={`hidden md:flex flex-1 max-w-xl mx-4 relative ${searchFocused
-                            ? "ring-2 ring-orange-400 rounded-lg shadow-md"
-                            : ""
-                            }`}
+                        className={`hidden md:flex flex-1 max-w-xl mx-4 relative ${
+                            searchFocused
+                                ? "ring-2 ring-orange-400 rounded-lg shadow-md"
+                                : ""
+                        }`}
                     >
                         <div className="relative w-full flex items-center">
                             <div
@@ -412,8 +414,9 @@ function Nava() {
                                     <span>All Categories</span>
                                     <ChevronDown
                                         size={14}
-                                        className={`ml-1 transition-transform duration-200 ${categoryDropdown ? "rotate-180" : ""
-                                            }`}
+                                        className={`ml-1 transition-transform duration-200 ${
+                                            categoryDropdown ? "rotate-180" : ""
+                                        }`}
                                     />
                                 </button>
 
@@ -642,28 +645,30 @@ function Nava() {
                                         {notifications.map((notification) => (
                                             <div
                                                 key={notification.id}
-                                                className={`px-4 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors duration-200 ${notification.isRead
-                                                    ? "opacity-70"
-                                                    : ""
-                                                    }`}
+                                                className={`px-4 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors duration-200 ${
+                                                    notification.isRead
+                                                        ? "opacity-70"
+                                                        : ""
+                                                }`}
                                             >
                                                 <div className="flex">
                                                     <div
                                                         className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 
-                            ${notification.type === "order"
-                                                                ? "bg-blue-100 text-blue-500"
-                                                                : notification.type === "promo"
-                                                                    ? "bg-green-100 text-green-500"
-                                                                    : "bg-orange-100 text-orange-500"
-                                                            }`}
+                            ${
+                                notification.type === "order"
+                                    ? "bg-blue-100 text-blue-500"
+                                    : notification.type === "promo"
+                                      ? "bg-green-100 text-green-500"
+                                      : "bg-orange-100 text-orange-500"
+                            }`}
                                                     >
                                                         {notification.type ===
-                                                            "order" ? (
+                                                        "order" ? (
                                                             <ShoppingCart
                                                                 size={16}
                                                             />
                                                         ) : notification.type ===
-                                                            "promo" ? (
+                                                          "promo" ? (
                                                             <Tag size={16} />
                                                         ) : (
                                                             <Bell size={16} />
@@ -749,8 +754,9 @@ function Nava() {
                                 </div>
                                 <ChevronDown
                                     size={14}
-                                    className={`ml-1 hidden xl:block transition-transform duration-200 ${accountDropdown ? "rotate-180" : ""
-                                        }`}
+                                    className={`ml-1 hidden xl:block transition-transform duration-200 ${
+                                        accountDropdown ? "rotate-180" : ""
+                                    }`}
                                 />
                             </button>
 
@@ -890,10 +896,11 @@ function Nava() {
 
                 {/* Main Enhanced Navigation Bar - Smooth transition when scrolled or not on home page */}
                 <nav
-                    className={`hidden lg:flex items-center justify-between mt-2 pb-2 border-b border-gray-100 transition-all duration-300 ease-in-out ${scrolled || currentPath !== "/"
-                        ? "max-h-0 opacity-0 overflow-hidden py-0 mt-0 border-b-0"
-                        : "max-h-20 opacity-100"
-                        }`}
+                    className={`hidden lg:flex items-center justify-between mt-2 pb-2 border-b border-gray-100 transition-all duration-300 ease-in-out ${
+                        scrolled || currentPath !== "/"
+                            ? "max-h-0 opacity-0 overflow-hidden py-0 mt-0 border-b-0"
+                            : "max-h-20 opacity-100"
+                    }`}
                 >
                     {/* Category navigation with mega menu */}
                     <div className="flex space-x-5">
