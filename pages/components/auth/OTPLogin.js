@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext';
 import { useRouter } from 'next/router';
 import { showAlert } from './AuthAlert';
 import { showSuccessAlert } from './AuthSuccessAlert';
-import { OTPLoginSchema, OTPVerifySchema } from './Schemas/otpLoginSchema';
+import { OTPLoginSchema, OTPVerifySchema } from '../../../Schemas/otpLoginSchema';
 
 function OTPLogin({ onSwitchToPassword }) {
     const { resendOTP, verifyOTP } = useAuth();
@@ -31,7 +31,7 @@ function OTPLogin({ onSwitchToPassword }) {
             // Validate the form data
             const parsedData = OTPLoginSchema.parse(formData);
             setErrors({});
-            
+
             // Send OTP request
             const response = await resendOTP(parsedData);
             console.log('OTP sent successfully', response);
@@ -58,7 +58,7 @@ function OTPLogin({ onSwitchToPassword }) {
             // Validate the OTP
             const parsedData = OTPVerifySchema.parse(formData);
             setErrors({});
-            
+
             // Verify OTP
             const response = await verifyOTP(parsedData);
             console.log('OTP verified successfully', response);
@@ -99,7 +99,7 @@ function OTPLogin({ onSwitchToPassword }) {
                                 <p className="text-red-500 text-xs mt-1">{errors.email_or_phone}</p>
                             )}
                         </div>
-                        
+
                         <div>
                             <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">Type of OTP recipient</label>
                             <select
@@ -116,7 +116,7 @@ function OTPLogin({ onSwitchToPassword }) {
                                 <p className="text-red-500 text-xs mt-1">{errors.type}</p>
                             )}
                         </div>
-                        
+
                         <div>
                             <label htmlFor="via" className="block text-sm font-medium text-gray-700 mb-1">Delivery method (optional)</label>
                             <select
@@ -139,10 +139,10 @@ function OTPLogin({ onSwitchToPassword }) {
                         >
                             Send OTP
                         </button>
-                        
+
                         <div className="text-center">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={onSwitchToPassword}
                                 className="text-sm font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
                             >
@@ -179,20 +179,20 @@ function OTPLogin({ onSwitchToPassword }) {
                         >
                             Verify OTP
                         </button>
-                        
+
                         <div className="text-center">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => setIsOTPSent(false)}
                                 className="text-sm font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
                             >
                                 Resend OTP
                             </button>
                         </div>
-                        
+
                         <div className="text-center">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={onSwitchToPassword}
                                 className="text-sm font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
                             >

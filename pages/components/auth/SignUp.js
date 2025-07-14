@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext';
 import { useRouter } from 'next/router';
 import { showAlert } from './AuthAlert';
 import { showSuccessAlert } from './AuthSuccessAlert';
-import { SignUpSchema } from './Schemas/signupSchema';
+import { SignUpSchema } from '../../../Schemas/signupSchema';
 
 function SignUp() {
     const { register } = useAuth();
