@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { popularSearches, recentSearches, specialDeals } from "../../utils/NavUtils"
 import Link from "next/link";
 import { categories, trendingProducts } from "@/constants/NavbarConstants";
-import { useAuth } from "./auth/AuthContext";
+import { useAuth } from "../../Contexts/AuthContext";
 
 // Import modular components from NavPageSection
 import UtilityBar from "@/page_sections/NavPageSection/UtilityBar";

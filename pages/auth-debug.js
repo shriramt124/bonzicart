@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAuth } from './components/auth/AuthContext';
+import { useAuth } from '../Contexts/AuthContext';
 import { useSession } from 'next-auth/react';
 
 function AuthDebug() {
@@ -15,7 +15,7 @@ function AuthDebug() {
     return (
         <div className="p-8">
             <h1 className="text-2xl font-bold mb-4">Authentication Debug</h1>
-            
+
             <div className="mb-6 p-4 bg-gray-100 rounded">
                 <h2 className="text-xl font-semibold mb-2">Auth Context</h2>
                 <p><strong>isAuthenticated:</strong> {isAuthenticated ? 'true' : 'false'}</p>
@@ -26,7 +26,7 @@ function AuthDebug() {
                     </pre>
                 )}
             </div>
-            
+
             <div className="p-4 bg-gray-100 rounded">
                 <h2 className="text-xl font-semibold mb-2">NextAuth Session</h2>
                 <p><strong>Session:</strong> {session ? 'Present' : 'Not present'}</p>

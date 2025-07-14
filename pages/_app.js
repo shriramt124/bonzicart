@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import MainLayout from "./components/layouts/MainLayout";
-import { AuthProvider } from "./components/auth/AuthContext";
+import { AuthProvider } from "../Contexts/AuthContext";
 import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
