@@ -165,7 +165,7 @@ export const interestCategories = [
 ];
 
 // Popular products
-const popularProducts = [
+export const popularProducts = [
   {
     id: 1,
     name: "HD Dual Camera Drone",
