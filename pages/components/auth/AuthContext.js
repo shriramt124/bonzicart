@@ -1,55 +1,71 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
-// Create the AuthContext
 const AuthContext = createContext();
 const url = process.env.NEXT_PUBLIC_API_URL;
 
-// Create a provider component
 export const AuthProvider = ({ children }) => {
-    const { data: session } = useSession();
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // Add loading state
+    const { data: session, status } = useSession(); // NextAuth session status
 
-    // Update user state when session changes
+    const savetoLocalStorage = (user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('access_token', user.access_token);
+    };
+
+    const removeFromLocalStorage = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+    };
+
+    // Initialize user from localStorage or session
     useEffect(() => {
-        if (session?.user) {
-            // If we have API data from our backend, use that
-            if (session.user.apiData) {
-                setUser(session.user.apiData);
-            } else {
-                // Otherwise use the basic session user data
-                setUser(session.user);
+        const restoreUserFromStorage = () => {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                try {
+                    const parsedUser = JSON.parse(storedUser);
+                    setUser(parsedUser);
+                } catch (e) {
+                    console.error("Failed to parse user from localStorage", e);
+                }
             }
-        } else {
-            setUser(null);
+            setLoading(false);
+        };
+
+        // Wait for session check only if using OAuth
+        if (status === 'unauthenticated' || status === 'authenticated') {
+            restoreUserFromStorage();
         }
-    }, [session]);
+    }, [status]);
 
     // Login method for email/password
     const login = async (credentials) => {
         try {
-            // If it's a Google login (type 1), use NextAuth signIn
             if (credentials.type === 1) {
                 return await signIn('google', { callbackUrl: '/' });
             }
 
-            // Otherwise use the regular API login
             const response = await axios.post(`${url}/api/login`, credentials, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log("response received from the backend", response.data);
-            setUser(response.data);
+
+            if (response.data && response.data.data) {
+                setUser(response.data.data);
+                savetoLocalStorage(response.data.data);
+            }
+
             return response.data;
         } catch (error) {
+            console.error("Login error:", error);
             throw error;
         }
     };
 
-    // Google login method
     const googleLogin = async () => {
         try {
             return await signIn('google', { callbackUrl: '/' });
@@ -58,7 +74,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Register method
     const register = async (userData) => {
         try {
             const response = await axios.post(`${url}/api/register`, userData, {
@@ -66,35 +81,50 @@ export const AuthProvider = ({ children }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
             return response.data;
         } catch (error) {
-            console.log("error received from the backend")
+            console.log("Error received from the backend");
             throw error;
         }
     };
 
-    // Resend OTP method
     const resendOTP = async (data) => {
         try {
-            const response = await axios.post(`${url}/api/resend-otp`, data);
+            const formData = new FormData();
+            for (const key in data) {
+                formData.append(key, data[key]);
+            }
+            const response = await axios.post(`${url}/api/resend-otp`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             return response;
         } catch (error) {
             throw error;
         }
     };
 
-    // Verify OTP method
     const verifyOTP = async (data) => {
         try {
-            const response = await axios.post(`${url}/api/otp-verify`, data);
+            const formData = new FormData();
+            for (const key in data) {
+                formData.append(key, data[key]);
+            }
+            const response = await axios.post(`${url}/api/verify-otp`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            setUser(response.data);
+            removeFromLocalStorage();
+            savetoLocalStorage(response.data);
             return response;
         } catch (error) {
             throw error;
         }
     };
 
-    // Verify mobile OTP method
     const verifyMobileOTP = async (data) => {
         try {
             const response = await axios.post(`${url}/api/mobile-verify`, data);
@@ -104,10 +134,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Logout method
     const logout = async () => {
         await signOut({ callbackUrl: '/auth/login' });
         setUser(null);
+        removeFromLocalStorage();
+        //redirect to the home page 
+
     };
 
     return (
@@ -122,13 +154,13 @@ export const AuthProvider = ({ children }) => {
                 verifyOTP,
                 verifyMobileOTP,
                 logout,
-                isAuthenticated: !!user,
+                loading
             }}
         >
-            {children}
+            {!loading ? children : <div>Loading...</div>}
         </AuthContext.Provider>
     );
 };
 
-// Create a hook for easy use
+// Hook for easy access
 export const useAuth = () => useContext(AuthContext);

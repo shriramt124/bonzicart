@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { showAlert } from './AuthAlert';
 import { showSuccessAlert } from './AuthSuccessAlert';
 import { LoginSchema } from './Schemas/loginShema';
+import OTPLogin from './OTPLogin';
 
 function SignIn() {
     const { login, googleLogin } = useAuth();
@@ -12,6 +13,7 @@ function SignIn() {
         email_or_phone: '',
         password: '',
     });
+    const [loginMethod, setLoginMethod] = useState('password'); // 'password' or 'otp'
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -29,10 +31,24 @@ function SignIn() {
             setErrors({});
             // Add the 'type' field with value 0 for email/password login
             const loginData = { ...parsedData, type: 0 };
+            
+            console.log('Submitting login data:', loginData);
             const response = await login(loginData);
             console.log('Login successful', response);
-            showSuccessAlert(response.data.message, router, '/'); // Redirect to home page after login
+            
+            // Check if we have a response with data structure
+            if (response && response.data && response.data.message) {
+                showSuccessAlert(response.data.message, router, '/'); // Redirect to home page after login
+            } else if (response && response.message) {
+                // Alternative response structure
+                showSuccessAlert(response.message, router, '/');
+            } else {
+                // Fallback if response structure is unexpected
+                showSuccessAlert('Login successful', router, '/');
+            }
         } catch (err) {
+            console.error('Login error:', err);
+            
             if (err.response && err.response.data && err.response.data.message) {
                 showAlert({ message: err.response.data.message, title: "Login Error" });
             } else if (err.errors) {
@@ -56,8 +72,17 @@ function SignIn() {
         }
     };
 
+    const handleSwitchToOTP = () => {
+        setLoginMethod('otp');
+    };
+
+    const handleSwitchToPassword = () => {
+        setLoginMethod('password');
+    };
+
     return (
         <div className="bg-white p-6 sm:p-8 rounded-b-xl sm:rounded-b-2xl shadow-xl w-full max-w-md">
+            {loginMethod === 'password' ? (
             <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="space-y-5">
                     <div>
@@ -146,7 +171,20 @@ function SignIn() {
                         <span>Sign in with Google</span>
                     </button>
                 </div>
+                
+                <div className="text-center mt-4">
+                    <button 
+                        type="button" 
+                        onClick={handleSwitchToOTP}
+                        className="text-sm font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
+                    >
+                        Login with OTP
+                    </button>
+                </div>
             </form>
+            ) : (
+                <OTPLogin onSwitchToPassword={handleSwitchToPassword} />
+            )}
         </div>
     );
 }

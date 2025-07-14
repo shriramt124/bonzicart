@@ -9,11 +9,11 @@ function SignUp() {
     const { register } = useAuth();
     const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
-        'first_name': '',
-        'last_name': '',
+        first_name: '',
+        last_name: '',
         phone_number: '',
         email: '',
-        'password': '',
+        password: '',
     });
     const router = useRouter(); // Add this line to get the router object
 
